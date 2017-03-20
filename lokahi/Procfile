@@ -1,0 +1,2 @@
+web: gunicorn lokahi.wsgi --log-file -
+
