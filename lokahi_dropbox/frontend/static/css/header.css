@@ -1,0 +1,56 @@
+body a {
+    color: #355bfc;
+}
+h3 a {
+    color: #355bfc;
+}
+body {
+    vertical-align: middle;
+}
+
+
+h1 {
+    text-align: center;
+}
+h2 {
+    text-align: center;
+}
+h3 {
+    text-align: center;
+}
+.login {
+     width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.center-div {
+    background-color: #e6ecff;
+    padding: 20px 20px 20px 40px;
+    margin: auto;
+    width: 60%;
+    border: 3px solid #000000;
+
+}
+
+.center-div2 {
+    background-color: #e6ecff;
+    padding: 20px 20px 20px 40px;
+    margin: auto;
+    width: 30%;
+    border: 3px solid #000000;
+
+}
+.select{
+      width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
