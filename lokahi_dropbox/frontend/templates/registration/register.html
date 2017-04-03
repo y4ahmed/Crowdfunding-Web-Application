@@ -1,12 +1,19 @@
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
 {% extends "base.html" %}
 {% block title %}User Registration{% endblock %}
 {% block head %}User Registration{% endblock %}
 {% block content %}
+    <div class = "center-div2">
     <form method="post" action=".">{% csrf_token %}
         <table border="0">
             {{ form.as_table }}
         </table>
-        <input type="submit" value="Register" />
+        <input type="submit" class = "login" value="Register" />
     </form>
-    <a href="/">Login</a>
+<br>
+<h3><a href="/">Already have an account? Login</a></h3>
+</div>
 {% endblock %}

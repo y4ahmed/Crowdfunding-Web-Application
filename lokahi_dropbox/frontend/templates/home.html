@@ -1,7 +1,27 @@
+
 {% extends "base.html" %}
-{% block title %}Welcome to Django{% endblock %}
-{% block head %}Welcome to Django{% endblock %}
-{% block content %}
-    <p>Welcome {{ user.username }} !!!</p>
-    <a href="/logout/">Logout</a>
+
+
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+
+
+{% block title %}<h1>Welcome to Django</h1>{% endblock %}
+
+
+
+    {% block head %}Welcome to Django{% endblock %}
+    {% block content %}
+         <div class = "center-div">
+
+
+
+             <h2><p>Welcome {{ user.username }}!!!</p></h2>
+    <h3><a href="/logout/">Logout</a></h3>
 {% endblock %}
+
+</div>
+</body>
