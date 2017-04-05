@@ -60,9 +60,6 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            print("yay")
-            print(request.FILES['file'])
-            print(type(request.FILES['file']))
             handle_uploaded_file(request.FILES['file'])   #need to make one of these methods
             return HttpResponseRedirect('/upload_success/')
     else:
@@ -71,6 +68,7 @@ def upload_file(request):
 
 
 def handle_uploaded_file(f):
+
     with open('lokahi_dropbox/temp.txt', 'wb+') as destination:
         for chunks in f.chunks():
             destination.write(chunks)
