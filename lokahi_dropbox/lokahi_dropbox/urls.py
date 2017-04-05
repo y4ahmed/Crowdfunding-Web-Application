@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     url(r'^register/success/$', register_success),
     url(r'^home/$', home),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^upload', upload_file),
+    url(r'^upload_success', upload_success),
 )
 
 # urlpatterns = [
