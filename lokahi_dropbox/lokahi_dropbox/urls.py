@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from frontend.views import *
+from messaging.views import *
 
 urlpatterns = patterns('',
     url(r'^$', 'django.contrib.auth.views.login'),
@@ -12,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^upload', upload_file),
     url(r'^upload_success', upload_success),
+    url(r'^send_message', send_message),
 )
 
 # urlpatterns = [
