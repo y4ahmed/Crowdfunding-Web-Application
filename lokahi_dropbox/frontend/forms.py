@@ -5,11 +5,16 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class RegistrationForm(forms.Form):
+    role_choices = (
+        (1, _("Company User")),
+        (2, _("Investor User")),
+    )
 
     username = forms.RegexField(regex=r'^\w+$', widget=forms.TextInput(attrs={'required': True, 'max_length': 30, 'class':'select'}), label=_("Username"), error_messages={ 'invalid': _("This value must contain only letters, numbers and underscores.") })
     email = forms.EmailField(widget=forms.TextInput(attrs={'required': True, 'max_length': 30, 'class': 'select'}), label=_("Email address"))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'required': True, 'max_length': 30, 'render_value': False, 'class': 'select'}), label=_("Password"))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'required': True, 'max_length': 30, 'render_value': False, 'class': 'select'}), label=_("Password (again)"))
+    user_role = forms.ChoiceField(choices=role_choices)
 
     def clean_username(self):
         try:

@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'lokahi_dropbox.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'lokahi_dropbox',
+        'USER': 'admin',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
