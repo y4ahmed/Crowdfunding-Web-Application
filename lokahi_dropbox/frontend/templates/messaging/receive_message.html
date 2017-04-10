@@ -12,8 +12,11 @@
   <ul>
 {% for message in messages %}
     <li>{{ message.message }}</li>
+        {{ message.sender }}
 {% endfor %}
 </ul>
 <br>
 </div>
+<h3><a href="/send_message/">send message</a></h3>
+<h3><a href="/home/">home</a></h3>
 {% endblock %}
