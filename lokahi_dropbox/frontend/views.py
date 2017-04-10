@@ -60,7 +60,7 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])   #need to make one of these methods
+            handle_uploaded_file(request.FILES['file'])
             return HttpResponseRedirect('/upload_success/')
     else:
         form = UploadFileForm()
@@ -68,7 +68,7 @@ def upload_file(request):
 
 
 def handle_uploaded_file(f):
-
-    with open('lokahi_dropbox/temp.txt', 'wb+') as destination:
+    file_extension = f._get_name()[-3:]                         # Gets the file extension using substrings
+    with open('lokahi_dropbox/temp.' + file_extension, 'wb+') as destination:
         for chunks in f.chunks():
             destination.write(chunks)
