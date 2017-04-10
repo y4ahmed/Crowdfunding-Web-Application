@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+</head>
+{% block head %}receive a message{% endblock %}
+{% block content %}
+<div class = "center-div2">
+  <ul>
+{% for message in messages %}
+    <li>{{ message.message }}</li>
+{% endfor %}
+</ul>
+<br>
+</div>
+{% endblock %}

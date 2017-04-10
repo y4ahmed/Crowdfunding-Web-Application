@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^upload', upload_file),
     url(r'^upload_success', upload_success),
     url(r'^send_message', send_message),
+    url(r'^receive_message', receive_message),
 )
 
 # urlpatterns = [
