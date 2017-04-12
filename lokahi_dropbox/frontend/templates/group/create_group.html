@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+</head>
+{% block head %}Create a group{% endblock %}
+{% block content %}
+<div class = "center-div2">
+  <form method="post" action=".">{% csrf_token %}
+    group name:<br>
+    <input type="text" name="group_name"><br>
+    description:<br>
+    <input type="text" name="group_description"><br>
+    files to access (comma seperated names):<br>
+    <input type="text" name="group_files"><br>
+    Create :<br>
+    <input type="submit" name="send">
+  </form>
+<br>
+</div>
+<h3><a href="/home/">home</a></h3>
+{% endblock %}
