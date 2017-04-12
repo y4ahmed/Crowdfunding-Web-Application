@@ -11,7 +11,8 @@
 <div class = "center-div2">
   <ul>
 {% for message in messages %}
-    <li>{{ message.message }}</li>
+    <li>{{ message.subject }}</li>
+        {{ message.message }}
         {{ message.sender }}
 {% endfor %}
 </ul>
