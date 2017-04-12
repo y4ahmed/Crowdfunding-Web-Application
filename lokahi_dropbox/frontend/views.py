@@ -1,5 +1,6 @@
 # Create your views here.
 from frontend.forms import *
+from .models import BaseUser
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_protect
@@ -13,11 +14,15 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
+            user_role = form.cleaned_data['user_role']
+
             user = User.objects.create_user(
             username=form.cleaned_data['username'],
             password=form.cleaned_data['password1'],
             email=form.cleaned_data['email']
             )
+            base = BaseUser.objects.create(user=user, user_role=user_role)
+
             return HttpResponseRedirect('/register/success/')
     else:
         form = RegistrationForm()
@@ -50,9 +55,10 @@ def logout_page(request):
 
 @login_required
 def home(request):
+    base = BaseUser.objects.get(user=request.user)
     return render_to_response(
     'home.html',
-    { 'user': request.user }
+    { 'user': base }
     )
 
 @csrf_protect
