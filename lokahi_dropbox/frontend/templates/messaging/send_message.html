@@ -8,14 +8,14 @@
 </head>
 {% block head %}send a message{% endblock %}
 {% block content %}
+
 <div class = "center-div2">
-  <form>
-    message:<br>
-    <input type="text" name="message"><br>
-    receiver:<br>
-    <input type="text" name="receiver"><br>
-    submit:<br>
-    <input type="submit" name="send">
+
+  <form method = "POST" action =".">{% csrf_token %}
+      <table border="0">
+            {{ form.as_table }}
+        </table>
+      <input type="submit" class = "login" value="Send Message" />
   </form>
 <br>
 </div>
