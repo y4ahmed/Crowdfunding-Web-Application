@@ -14,9 +14,10 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = User.objects.create_user(
-            username=form.cleaned_data['username'],
-            password=form.cleaned_data['password1'],
-            email=form.cleaned_data['email']
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password1'],
+                email=form.cleaned_data['email'],
+                user_role = form.cleaned_data['user_role']
             )
             return HttpResponseRedirect('/register/success/')
     else:
