@@ -88,3 +88,8 @@ ENV/
 # Rope project settings
 .ropeproject
 *.sqlite3
+
+frontend/migrations/0001_initial.py
+messaging/migrations/0004_message_subject.py
+.DS_Store
+.idea
