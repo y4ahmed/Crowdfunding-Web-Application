@@ -33,4 +33,6 @@ def create_group(request):
         return render(request, 'group/create_group.html',)
 
 def view_group(request):
-    return render(request, 'group/view_group.html',)
+    base_user = BaseUser.objects.get(user=request.user)
+    groups = Group.objects.filter(member_list=base_user)
+    return render(request, 'group/view_group.html', {'groups':groups})
