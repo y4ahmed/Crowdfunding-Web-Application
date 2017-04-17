@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from .forms import UploadFileForm
 
+
 @csrf_protect
 def register(request):
     if request.method == 'POST':
@@ -60,6 +61,7 @@ def home(request):
     'home.html',
     { 'user': base }
     )
+
 
 @csrf_protect
 def upload_file(request):

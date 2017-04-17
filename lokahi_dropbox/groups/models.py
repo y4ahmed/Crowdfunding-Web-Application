@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Group(models.Model):
     group_name = models.CharField(max_length=30,)
     member_list = models.ManyToManyField(BaseUser)
-    report_list = [];
+    report_list = []
 
     def add_members(self, mem_list):
         for mem in mem_list:
@@ -16,8 +16,8 @@ class Group(models.Model):
             except User.DoesNotExist:
                 # TODO: fix the error page redirection
                 raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
-            self.member_list.add(base_user);
+            self.member_list.add(base_user)
 
     def add_reports(self, reports):
         for r in reports:
-            self.report_list += [r];
+            self.report_list += [r]
