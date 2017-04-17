@@ -12,10 +12,10 @@
   <form method="post" action=".">{% csrf_token %}
     group name:<br>
     <input type="text" name="group_name"><br>
-    description:<br>
-    <input type="text" name="group_description"><br>
-    files to access (comma seperated names):<br>
-    <input type="text" name="group_files"><br>
+    group members (comma seperated names):<br>
+    <input type="text" name="member_list"><br>
+    reports accessible (comma seperated names):<br>
+    <input type="text" name="report_list"><br>
     Create :<br>
     <input type="submit" name="send">
   </form>
