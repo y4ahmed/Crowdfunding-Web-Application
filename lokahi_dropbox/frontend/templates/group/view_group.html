@@ -8,6 +8,13 @@
 </head>
 {% block head %}Here are your groups{% endblock %}
 {% block content %}
+<div class = "center-div2">
+  <ul>
+{% for group in groups %}
+    <li>{{ group.group_name }}</li>
+{% endfor %}
+</ul>
+<br>
 </div>
 <h3><a href="/home/">home</a></h3>
 {% endblock %}

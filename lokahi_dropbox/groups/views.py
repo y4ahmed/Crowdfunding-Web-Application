@@ -20,13 +20,15 @@ def create_group(request):
             member_list = member_list + [request.user.username]
             report_list = report_list_temp.split(",")
 
-            # form.validate_members(member_list)
-
             group = Group.objects.create(group_name=group_name)
+
             group.add_members(member_list)
+            # group.add_reports(report_list)
 
+            base_user = BaseUser.objects.get(user=request.user)
+            groups = Group.objects.filter(member_list=base_user)
 
-        return render(request, 'group/view_group.html',)
+        return render(request, 'group/view_group.html', {'groups':groups})
     else:
         return render(request, 'group/create_group.html',)
 

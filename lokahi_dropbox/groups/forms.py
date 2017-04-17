@@ -23,3 +23,8 @@ class GroupForm(forms.Form):
     # TODO once the report model is added
     def validate_reports(self):
         pass
+
+    # TODO:
+    # validate if the same group name already exists
+    # validate if the members exist
+    # validate if the reports are available
