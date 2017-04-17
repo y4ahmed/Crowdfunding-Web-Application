@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from frontend.views import *
 from messaging.views import *
+from groups.views import *
 
 urlpatterns = patterns('',
     url(r'^$', 'django.contrib.auth.views.login'),
@@ -15,6 +16,9 @@ urlpatterns = patterns('',
     url(r'^upload_success', upload_success),
     url(r'^send_message', send_message),
     url(r'^receive_message', receive_message),
+    url(r'^groups/$', groups),
+    url(r'^groups/create_group/$', create_group),
+    url(r'^groups/view_groups/$', view_group),
 )
 
 # urlpatterns = [
