@@ -16,9 +16,19 @@ def create_group(request):
             member_list_temp = form.cleaned_data['member_list']
             report_list_temp = form.cleaned_data['report_list']
 
-            member_list = member_list_temp.split(",")
+            member_list_temp = member_list_temp.split(",")
+            for mem in member_list_temp:
+                member_list += [mem.stip()]
             member_list = member_list + [request.user.username]
+
             report_list = report_list_temp.split(",")
+
+            is_duplicate = len(Group.objects.filter(group_name=group_name))
+
+            if is_duplicate > 0:
+                # TODO : raise error !
+                # a group with this name already exists
+                raise Error("group duplicate")
 
             group = Group.objects.create(group_name=group_name)
 

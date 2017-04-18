@@ -11,9 +11,13 @@
 <div class = "center-div2">
   <ul>
 {% for message in messages %}
-    <li>{{ message.subject }}</li>
-        {{ message.message }}
-        {{ message.sender }}
+  <li>  Subject: {{ message.subject }} <br>    </li>
+        Body: {{ message.message }} <br>
+        From: {{ message.sender }}  <br>
+      <form method="POST" action="/delete_message/">{% csrf_token %}
+        <input type="hidden" name="message" value={{message.id}} />
+        <input type="submit" value="Delete" /><br>
+      </form>
 {% endfor %}
 </ul>
 <br>

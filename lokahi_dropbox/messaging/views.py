@@ -25,6 +25,17 @@ def send_message(request):
 def receive_message(request):
     messages = Message.objects.filter(receiver=request.user.username)
     if len(messages) != 0:
-        return render_to_response('messaging/receive_message.html',{'messages': messages})
+        return render(request, 'messaging/receive_message.html',{'messages': messages})
     else:
-        return render_to_response('messaging/receive_message.html',)
+        return render(request, 'messaging/receive_message.html',)
+
+
+def delete_message(request):
+    if request.method == 'POST':
+        form = DeleteForm(data=request.POST)
+        if form.is_valid():
+            index = form.cleaned_data['message']
+            m = Message.objects.get(id=index)
+            m.delete()
+            messages = Message.objects.filter(receiver=request.user.username)
+            return render(request, 'messaging/receive_message.html',{'messages': messages})

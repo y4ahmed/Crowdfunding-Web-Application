@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^groups/$', groups),
     url(r'^groups/create_group/$', create_group),
     url(r'^groups/view_groups/$', view_group),
+    url(r'^delete_message/$', delete_message),
 )
 
 # urlpatterns = [
