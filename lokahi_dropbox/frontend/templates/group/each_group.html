@@ -19,6 +19,11 @@
     <input type="hidden" name="group_id" value={{group_id}} /><br>
     <input type="submit" value="add" /><br>
   </form>
+  <form method="POST" action="/add_members/">{% csrf_token %}
+    <input type="hidden" name="username" value={{username}} />
+    <input type="hidden" name="group_id" value={{group_id}} /><br>
+    <input type="submit" value="exit" /><br>
+  </form>
 </ul>
 <br>
 </div>

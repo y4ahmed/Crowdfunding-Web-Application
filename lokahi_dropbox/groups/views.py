@@ -62,7 +62,7 @@ def edit_group(request):
         if form.is_valid():
             g = Group.objects.get(id=form.cleaned_data['group_id'])
             member_list = g.member_list.all()
-            return render(request, 'group/each_group.html', {'group_name':g.group_name, 'members':member_list, 'group_id':g.id})
+            return render(request, 'group/each_group.html', {'group_name':g.group_name, 'members':member_list, 'group_id':g.id, 'username':request.user.username})
 
 def add_members(request):
     if request.method == 'POST':
@@ -91,6 +91,15 @@ def add_members(request):
                 except User.DoesNotExist:
                     # TODO: fix the error page redirection
                     raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
+            return render(request, 'group/each_group.html', {'group_name':group.group_name, 'members':group.member_list.all(), 'group_id':group.id, 'username':request.user.username})
 
+        form = ExitGroupForm(data=request.POST)
+        if form.is_valid():
+            user = User.objects.get(username__iexact=form.cleaned_data['username'])
+            base_user = BaseUser.objects.get(user=user)
+            group = Group.objects.get(id=form.cleaned_data['group_id'])
 
-            return render(request, 'group/each_group.html', {'group_name':group.group_name, 'members':group.member_list.all(), 'group_id':group.id})
+            group.member_list.remove(base_user)
+
+            groups = Group.objects.filter(member_list=base_user)
+            return render(request, 'group/view_group.html', {'groups':groups})
