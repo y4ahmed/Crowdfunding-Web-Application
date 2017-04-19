@@ -9,7 +9,7 @@ from Crypto.PublicKey import RSA
 class BaseUser(models.Model):
     user = models.OneToOneField(User)
     user_role = models.CharField(max_length=30)
-    RSAkey = RSA.generate(2048)
+    RSAkey = models.CharField(max_length=10000)
 
     def set_user_role(self, user_role):
         self.user_role = user_role

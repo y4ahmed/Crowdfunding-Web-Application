@@ -22,3 +22,6 @@ class MessageForm(forms.Form):
 
 class DeleteForm(forms.Form):
     message = forms.CharField(max_length=30)
+
+class DecryptMessageForm(forms.Form):
+    message = forms.CharField(max_length=30)

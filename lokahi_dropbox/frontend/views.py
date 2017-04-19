@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from .forms import UploadFileForm
-
+from Crypto.PublicKey import RSA
 
 @csrf_protect
 def register(request):
@@ -22,7 +22,7 @@ def register(request):
             password=form.cleaned_data['password1'],
             email=form.cleaned_data['email']
             )
-            base = BaseUser.objects.create(user=user, user_role=user_role)
+            base = BaseUser.objects.create(user=user, user_role=user_role, RSAkey=RSA.generate(2048).exportKey())
 
             return HttpResponseRedirect('/register/success/')
     else:
