@@ -22,10 +22,10 @@
     <div class = "jumbotron text-center">
              <div class="container">
              <div class="btn-group">
-               {% if type == "Company User" %}
-      <h3><a href="/create_report/">create a report</a></h3>
-    {% endif %}
-                <h3><a href="/receive_message/">receive message</a></h3>
+                 {% if type == "Company User" %}
+                    <a class = "btn btn-default" href="/create_report/">create a report</a>
+                 {% endif %}
+                <a class = "btn btn-default" href="/view_reports/">View reports</a>
 
   
              <a class = "btn btn-default" href="/send_message/">send message</a>
@@ -33,7 +33,12 @@
              <a class = "btn btn-default" href="/groups/">groups</a>
              <a class = "btn btn-default" href="/wall/">see the public wall</a>
              <a class = "btn btn-default" href="/post/">make a post to the wall</a>
+
              </div>
+                 <input type="text" name="search" id="id_search" class="form-control" maxlength="200">
+        <span class="input-group-btn">
+        <button type="submit" class="btn btn-default btn-group" name="submit_search" value="Search">Search</button>
+        </span>
              <br>
              <br>
              <h1>Lokahi Fintech</h1>
