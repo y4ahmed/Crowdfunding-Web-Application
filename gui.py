@@ -4,10 +4,17 @@ import requests
 from django.contrib.auth import logout as dj_logout
 import psycopg2
 from Crypto.Hash import SHA256
+from django.contrib.auth.password_validation import *
 import sys
 #from lokahi_dropbox.frontend.models import BaseUser
 #import django.contrib.auth.views as logger
 #from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
+
+import os
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'lokahi_dropbox.lokahi_dropbox.settings'
+
 
 
 
@@ -27,9 +34,7 @@ class Lokahi(ttk.Frame):
 
         username = self.username.get()
         password = self.password.get()
-        h = SHA256.new()
-        h.update(password.encode())
-        print(h.hexdigest())
+
         URL = "http://localhost:8000/"
 
         client = requests.session()
@@ -39,18 +44,21 @@ class Lokahi(ttk.Frame):
         csrftoken = client.cookies['csrftoken']
         r = client.post(URL, data={'username': username, 'password': password , 'csrfmiddlewaretoken': csrftoken, "next": "home/"})
         #print(r.content.decode())
+        encoded = ""
         try:
             conn = psycopg2.connect("dbname='lokahi_dropbox' user='admin' host='localhost' password='password'")
             cur = conn.cursor()
             cur.execute("""SELECT * from auth_user WHERE username = %(un)s""", {'un': username})
             rows = cur.fetchall()
-            print("\nShow me the databases:\n")
-            print(rows)
-            for row in rows:
-                print("   ", row[0])
+            encoded = rows[0][1]
+            if check_password(password, encoded):
+                print("Do stuff here!")
+            else:
+                print("Password does not match")
 
         except:
-            print("ARGH")
+            print("Database failure")
+
 
         #buser = BaseUser.objects.get(user=User())
         #logger.login
