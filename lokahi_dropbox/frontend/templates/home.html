@@ -22,6 +22,10 @@
              <h2><p>Welcome {{ user.user.username }}!!!</p></h2>
              <h2><p>You are a {{ user.user_role }}!</p></h2>
     <h3><a href="/logout/">Logout</a></h3>
+    {% if type == "Company User" %}
+      <h3><a href="/create_report/">create a report</a></h3>
+    {% endif %}
+    <h3><a href="/view_reports/">view a report</a></h3>
     <h3><a href="/send_message/">send message</a></h3>
     <h3><a href="/receive_message/">receive message</a></h3>
     <h3><a href="/groups/">groups</a></h3>

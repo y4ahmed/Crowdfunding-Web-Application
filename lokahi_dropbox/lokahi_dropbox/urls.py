@@ -27,6 +27,8 @@ urlpatterns = patterns('',
     url(r'^post/$', post),
     url(r'^wall/$', view_wall),
     url(r'^make_post/$', make_post),
+    url(r'^create_report/$', home),
+    url(r'^view_reports/$', home),
 )
 
 # urlpatterns = [
