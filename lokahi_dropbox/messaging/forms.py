@@ -11,7 +11,7 @@ class MessageForm(forms.Form):
     subject = forms.CharField(max_length=30)
     message = forms.CharField(max_length=255)
     receiver = forms.CharField(max_length=255)
-
+    encrypt = forms.BooleanField(required=False)
 
     def validate(self):
         try:

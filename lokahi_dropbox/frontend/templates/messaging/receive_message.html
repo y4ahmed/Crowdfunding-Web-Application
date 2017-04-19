@@ -18,6 +18,10 @@
         <input type="hidden" name="message" value={{message.id}} />
         <input type="submit" value="Delete" /><br>
       </form>
+      <form method="POST" action="/decrypt_message/">{% csrf_token %}
+        <input type="hidden" name="message" value={{message.id}} />
+        <input type="submit" value="Decrypt" /><br>
+      </form>
 {% endfor %}
 </ul>
 <br>
