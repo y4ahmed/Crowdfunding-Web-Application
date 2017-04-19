@@ -12,16 +12,19 @@ def send_message(request):
         form = MessageForm(request.POST)
         if form.is_valid():
             m = form.cleaned_data['message']
-            r = form.cleaned_data['receiver']
+            r = (form.cleaned_data['receiver']).strip()
             form.validate()
             s = request.user.username
             p = form.cleaned_data['subject']
+
+            if r == s:
+                # TODO: fix error page
+                raise Error("cannot send a message to yourself")
 
             if form.cleaned_data['encrypt']:
                 # encrypt
                 receiver_user = User.objects.get(username=r)
                 receiver_base_user = BaseUser.objects.get(user=receiver_user)
-                # print(receiver_base_user.RSAkey)
                 receiver_RSAkey = RSA.importKey(receiver_base_user.RSAkey)
                 m = str(receiver_RSAkey.encrypt(m.encode('utf-8'), "not needed".encode('utf-8'))[0])
                 message = Message.objects.create(subject=p,message=m, receiver=r, sender=s, encrypt=True)

@@ -28,7 +28,7 @@ def create_group(request):
             if is_duplicate > 0:
                 # TODO : raise error !
                 # a group with this name already exists
-                raise Error("group duplicate")
+                raise Error("group duplicate, group names must be unique")
 
             group = Group.objects.create(group_name=group_name)
 
@@ -40,9 +40,6 @@ def create_group(request):
                 except User.DoesNotExist:
                     # TODO: fix the error page redirection
                     raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
-
-            # group.add_members(member_list)
-            # group.add_reports(report_list)
 
             base_user = BaseUser.objects.get(user=request.user)
             groups = Group.objects.filter(member_list=base_user)

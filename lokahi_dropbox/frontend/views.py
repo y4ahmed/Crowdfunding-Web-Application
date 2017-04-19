@@ -59,7 +59,7 @@ def home(request):
     base = BaseUser.objects.get(user=request.user)
     return render_to_response(
     'home.html',
-    { 'user': base }
+    { 'user': base, 'type':base.user_role }
     )
 
 
