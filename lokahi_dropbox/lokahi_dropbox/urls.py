@@ -3,6 +3,7 @@ from django.contrib import admin
 from frontend.views import *
 from messaging.views import *
 from groups.views import *
+from wall_post.views import *
 
 urlpatterns = patterns('',
     url(r'^$', 'django.contrib.auth.views.login'),
@@ -23,6 +24,9 @@ urlpatterns = patterns('',
     url(r'^edit_group/$', edit_group),
     url(r'^add_members/$', add_members),
     url(r'^decrypt_message/$', decrypt_message),
+    url(r'^post/$', post),
+    url(r'^wall/$', view_wall),
+    url(r'^make_post/$', make_post),
 )
 
 # urlpatterns = [
