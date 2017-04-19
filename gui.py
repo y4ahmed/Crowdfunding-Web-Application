@@ -1,6 +1,10 @@
 import tkinter
 from tkinter import ttk
 import requests
+from django.contrib.auth import logout as dj_logout
+import psycopg2
+from Crypto.Hash import SHA256
+import sys
 #from lokahi_dropbox.frontend.models import BaseUser
 #import django.contrib.auth.views as logger
 #from django.contrib.auth.models import User
@@ -16,14 +20,38 @@ class Lokahi(ttk.Frame):
 
     def on_quit(self):
         """Exits program."""
+        #dj_logout()
         quit()
 
     def login(self):
 
         username = self.username.get()
         password = self.password.get()
-        r = requests.post("http://localhost:8000/", data={'username': username, 'password': password})
-        print(r.status_code, r.reason)
+        h = SHA256.new()
+        h.update(password.encode())
+        print(h.hexdigest())
+        URL = "http://localhost:8000/"
+
+        client = requests.session()
+
+        # Retrieve the CSRF token first
+        client.get(URL)  # sets cookie
+        csrftoken = client.cookies['csrftoken']
+        r = client.post(URL, data={'username': username, 'password': password , 'csrfmiddlewaretoken': csrftoken, "next": "home/"})
+        #print(r.content.decode())
+        try:
+            conn = psycopg2.connect("dbname='lokahi_dropbox' user='admin' host='localhost' password='password'")
+            cur = conn.cursor()
+            cur.execute("""SELECT * from auth_user WHERE username = %(un)s""", {'un': username})
+            rows = cur.fetchall()
+            print("\nShow me the databases:\n")
+            print(rows)
+            for row in rows:
+                print("   ", row[0])
+
+        except:
+            print("ARGH")
+
         #buser = BaseUser.objects.get(user=User())
         #logger.login
         self.answer_label['text'] = username + " " + password
