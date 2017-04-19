@@ -62,4 +62,35 @@ def edit_group(request):
         if form.is_valid():
             g = Group.objects.get(id=form.cleaned_data['group_id'])
             member_list = g.member_list.all()
-            return render(request, 'group/each_group.html', {'group_name':g.group_name, 'members':member_list})
+            return render(request, 'group/each_group.html', {'group_name':g.group_name, 'members':member_list, 'group_id':g.id})
+
+def add_members(request):
+    if request.method == 'POST':
+        form = AddMembersForm(data=request.POST)
+        if form.is_valid():
+            temp_list = form.cleaned_data['new_members']
+            group_id = form.cleaned_data['group_id']
+            temp_list = temp_list.split(',')
+            member_list = []
+            for m in temp_list:
+                member_list += [m.strip()]
+
+            group = Group.objects.get(id=group_id)
+
+            for m in member_list:
+                try:
+                    user = User.objects.get(username__iexact=m)
+                    base_user = BaseUser.objects.get(user=user)
+                    is_duplicate_user = len(Group.objects.filter(id=group.id, member_list=base_user))
+
+                    if is_duplicate_user > 0:
+                        # TODO: fix the error page redirection
+                        raise Error("user" + user.username + "is already a member of the group")
+
+                    group.member_list.add(base_user)
+                except User.DoesNotExist:
+                    # TODO: fix the error page redirection
+                    raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
+
+
+            return render(request, 'group/each_group.html', {'group_name':group.group_name, 'members':group.member_list.all(), 'group_id':group.id})

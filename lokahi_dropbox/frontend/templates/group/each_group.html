@@ -14,6 +14,11 @@
 {% for member in members %}
     <li>{{ member.user.username }}</li>
 {% endfor %}
+  <form method="POST" action="/add_members/">{% csrf_token %}
+    <input type="text" name="new_members" />
+    <input type="hidden" name="group_id" value={{group_id}} /><br>
+    <input type="submit" value="add" /><br>
+  </form>
 </ul>
 <br>
 </div>

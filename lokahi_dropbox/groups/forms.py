@@ -31,3 +31,7 @@ class GroupForm(forms.Form):
 
 class EditGroupForm(forms.Form):
     group_id = forms.CharField(max_length=30)
+
+class AddMembersForm(forms.Form):
+    new_members = forms.CharField(max_length=1000)
+    group_id = forms.CharField(max_length=30)
