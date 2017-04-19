@@ -18,11 +18,16 @@
     {% block head %}Welcome to Lokahi, {{ user.user.username }} {% endblock %}
 
     {% block content %}
+
     <div class = "jumbotron text-center">
              <div class="container">
              <div class="btn-group">
+               {% if type == "Company User" %}
+      <h3><a href="/create_report/">create a report</a></h3>
+    {% endif %}
+                <h3><a href="/receive_message/">receive message</a></h3>
 
-
+  
              <a class = "btn btn-default" href="/send_message/">send message</a>
              <a class = "btn btn-default" href="/receive_message/">receive message</a>
              <a class = "btn btn-default" href="/groups/">groups</a>
@@ -46,6 +51,7 @@ asymmetric information and moral hazards.</p>
              </div>
     </div>
         <a class = "btn btn-default" href="/logout/">Logout</a>
+
 {% endblock %}
 
 </div>
