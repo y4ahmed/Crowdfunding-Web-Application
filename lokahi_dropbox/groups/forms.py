@@ -28,3 +28,6 @@ class GroupForm(forms.Form):
     # validate if the same group name already exists
     # validate if the members exist
     # validate if the reports are available
+
+class EditGroupForm(forms.Form):
+    group_id = forms.CharField(max_length=30)

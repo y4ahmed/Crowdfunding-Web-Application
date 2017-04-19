@@ -6,16 +6,13 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <meta charset="UTF-8">
 </head>
-{% block head %}Here are your groups{% endblock %}
+{% block head %}Group{% endblock %}
 {% block content %}
 <div class = "center-div2">
   <ul>
-{% for group in groups %}
-    <li>Group name: {{ group.group_name }}</li>
-    <form method="POST" action="/edit_group/">{% csrf_token %}
-      <input type="submit" value="Edit" /><br>
-      <input type="hidden" name="group_id" value={{group.id}} /><br>
-    </form>
+    <h3>{{ group_name }}</h3>
+{% for member in members %}
+    <li>{{ member.user.username }}</li>
 {% endfor %}
 </ul>
 <br>

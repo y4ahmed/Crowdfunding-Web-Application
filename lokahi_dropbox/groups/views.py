@@ -15,10 +15,10 @@ def create_group(request):
             group_name = form.cleaned_data['group_name']
             member_list_temp = form.cleaned_data['member_list']
             report_list_temp = form.cleaned_data['report_list']
-
+            member_list = []
             member_list_temp = member_list_temp.split(",")
             for mem in member_list_temp:
-                member_list += [mem.stip()]
+                member_list += [mem.strip()]
             member_list = member_list + [request.user.username]
 
             report_list = report_list_temp.split(",")
@@ -32,7 +32,16 @@ def create_group(request):
 
             group = Group.objects.create(group_name=group_name)
 
-            group.add_members(member_list)
+            for m in member_list:
+                try:
+                    user = User.objects.get(username__iexact=m)
+                    base_user = BaseUser.objects.get(user=user)
+                    group.member_list.add(base_user)
+                except User.DoesNotExist:
+                    # TODO: fix the error page redirection
+                    raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
+
+            # group.add_members(member_list)
             # group.add_reports(report_list)
 
             base_user = BaseUser.objects.get(user=request.user)
@@ -46,3 +55,11 @@ def view_group(request):
     base_user = BaseUser.objects.get(user=request.user)
     groups = Group.objects.filter(member_list=base_user)
     return render(request, 'group/view_group.html', {'groups':groups})
+
+def edit_group(request):
+    if request.method == 'POST':
+        form = EditGroupForm(data=request.POST)
+        if form.is_valid():
+            g = Group.objects.get(id=form.cleaned_data['group_id'])
+            member_list = g.member_list.all()
+            return render(request, 'group/each_group.html', {'group_name':g.group_name, 'members':member_list})

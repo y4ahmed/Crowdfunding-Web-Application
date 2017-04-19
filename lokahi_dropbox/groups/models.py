@@ -13,10 +13,10 @@ class Group(models.Model):
             try:
                 user = User.objects.get(username__iexact=mem)
                 base_user = BaseUser.objects.get(user=user)
+                self.member_list.add(base_user)
             except User.DoesNotExist:
                 # TODO: fix the error page redirection
                 raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
-            self.member_list.add(base_user)
 
     def add_reports(self, reports):
         for r in reports:
