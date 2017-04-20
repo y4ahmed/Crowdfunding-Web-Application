@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'groups',
     'wall_post',
     'reports',
+    'search'
 )
 
 MIDDLEWARE_CLASSES = (

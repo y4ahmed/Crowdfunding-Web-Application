@@ -26,4 +26,3 @@ class File(models.Model):
     file = models.FileField(upload_to='')
     report = models.OneToOneField(Report)
     hash_code = models.CharField(max_length=500, blank=True, null=True)
-

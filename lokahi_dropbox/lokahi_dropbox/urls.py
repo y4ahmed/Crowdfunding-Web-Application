@@ -4,6 +4,7 @@ from frontend.views import *
 from messaging.views import *
 from groups.views import *
 from wall_post.views import *
+from search.views import *
 
 urlpatterns = patterns('',
     url(r'^$', 'django.contrib.auth.views.login'),
@@ -29,6 +30,7 @@ urlpatterns = patterns('',
     url(r'^make_post/$', make_post),
     url(r'^create_report/$', home),
     url(r'^view_reports/$', home),
+    url(r'^home/search/$', basic_search),
 )
 
 # urlpatterns = [
