@@ -8,9 +8,9 @@ from django.contrib import messages
 
 class MessageForm(forms.Form):
 
-    subject = forms.CharField(max_length=30)
-    message = forms.CharField(max_length=255)
-    receiver = forms.CharField(max_length=255)
+    subject = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'max_length': 30}))
+    message = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'max_length': 255}))
+    receiver = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'max_length': 255}))
     encrypt = forms.BooleanField(required=False)
 
     def validate(self):
