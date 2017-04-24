@@ -12,8 +12,8 @@
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
-    <div class = "center-div">
-        <form method="post" action=".">{% csrf_token %}
+    <div class = "jumbotron text-center">
+        <form method="post" action="." class = "form-group">{% csrf_token %}
             <!--
             <label for="id_username">Username:</label>
             <input type = "text" class = "select">
@@ -21,7 +21,7 @@
             <input type = "text" class = "select">
             -->
 
-        <table border="0">
+        <table border="0" class = "table table-hover">
             <tr><th><label for="id_username">Username:</label></th><td>{{ form.username }}</td></tr>
             <tr><th><label for="id_password">Password:</label></th><td>{{ form.password }}</td></tr>
         </table>
