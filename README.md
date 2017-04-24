@@ -31,5 +31,9 @@ source activate 3240
 # Install remaining required modules
 pip install -r requirements.txt
 
+# Create default SiteManager role
+python manage.py loaddata fixtures/users.json
+python manage.py loaddata fixtures/base_users.json
+
 # Run the application through Heroku
-heroku local web
+heroku local web 
