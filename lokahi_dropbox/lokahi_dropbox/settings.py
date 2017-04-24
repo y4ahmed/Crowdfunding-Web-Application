@@ -49,6 +49,8 @@ INSTALLED_APPS = (
     'messaging',
     'groups',
     'wall_post',
+    'reports',
+    'search'
 )
 
 MIDDLEWARE_CLASSES = (

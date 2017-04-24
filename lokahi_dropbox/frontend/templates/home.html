@@ -27,7 +27,7 @@
                  {% endif %}
                 <a class = "btn btn-default" href="/view_reports/">View reports</a>
 
-  
+
              <a class = "btn btn-default" href="/send_message/">send message</a>
              <a class = "btn btn-default" href="/receive_message/">receive message</a>
              <a class = "btn btn-default" href="/groups/">groups</a>
@@ -35,9 +35,11 @@
              <a class = "btn btn-default" href="/post/">make a post to the wall</a>
 
              </div>
-                 <input type="text" name="search" id="id_search" class="form-control" maxlength="200">
+      <form method="POST" action="search/">  {% csrf_token %}
+                 <input type="text" name="search" id="id_search" class="form-control" maxlength="1000" />
         <span class="input-group-btn">
         <button type="submit" class="btn btn-default btn-group" name="submit_search" value="Search">Search</button>
+      </form>
         </span>
              <br>
              <br>

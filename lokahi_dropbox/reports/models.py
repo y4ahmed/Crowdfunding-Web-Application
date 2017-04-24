@@ -18,7 +18,7 @@ class Report(models.Model):
     #time_created = models.DateTimeField(auto_now_add = True);
     time_created = models.TimeField(auto_now_add = True);
     #time_last_modified = models.DateTimeField(auto_now = True);
-    folder = models.ForeignKey(Folder, blank=True, null=True);
+    #folder = models.ForeignKey(Folder, blank=True, null=True);
     AES_key= models.CharField(max_length=500, blank=True)
 
 class File(models.Model):
@@ -26,11 +26,3 @@ class File(models.Model):
     file = models.FileField(upload_to='')
     report = models.OneToOneField(Report)
     hash_code = models.CharField(max_length=500, blank=True, null=True)
-
-
-class Folder(models.Model):
-    name = models.CharField(max_length=128)
-    user = models.OneToOneField(User)
-
-    def __str__(self):
-        return self.name

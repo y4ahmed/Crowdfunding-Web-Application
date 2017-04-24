@@ -2,7 +2,7 @@ from django import forms
 from .models import Report
 #pip install django-multiupload  or add to requirements.txt (yusuf)
 from multiupload.fields import MultiFileField
-from .models import Report, Folder, File
+from .models import Report, File
 
 class reportForm(forms.Form):
     tile = forms.CharField(label="Report Title: ", max_length=255)
@@ -30,16 +30,6 @@ SEARCH_CHOICES = (
     (SECTOR, 'Sector'),
     (CEO, "CEO"),
     )
-
-
-class new_folder_form(forms.ModelForm):
-    class Meta:
-        model = Folder
-        fields = ['name']
-
-
-class folder_select(forms.ModelForm):
-    folder = forms.ModelChoiceField(queryset=Folder.objects.filter())
 
 #Was trying to do some search forms, ignore or alter
 class single_search_query(forms.Form):
