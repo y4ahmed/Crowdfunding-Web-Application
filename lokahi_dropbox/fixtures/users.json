@@ -1,0 +1,20 @@
+[
+    {
+        "pk": 1,
+        "model": "auth.user",
+        "fields": {
+            "first_name": "",
+            "groups": [],
+            "username": "SiteManager",
+            "password": "pbkdf2_sha256$20000$rVOZPzIC7PWm$hd1dt7RPl62bULntYgR4c++ADOhnfQqlP4M9VsaEPYc=",
+            "user_permissions": [],
+            "is_active": true,
+            "email": "site.manager@example.com",
+            "date_joined": "2017-04-19T22:37:07.225Z",
+            "is_superuser": false,
+            "last_name": "",
+            "is_staff": false,
+            "last_login": "2017-04-24T18:03:34.546Z"
+        }
+    }
+]

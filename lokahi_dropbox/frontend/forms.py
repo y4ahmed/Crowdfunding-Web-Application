@@ -12,37 +12,37 @@ class RegistrationForm(forms.Form):
     )
 
     username = forms.RegexField(regex=r'^\w+$',
-                                widget=forms.TextInput(attrs={'required': True, 'max_length': 30, 'class': 'select'}),
+                                widget=forms.TextInput(
+                                    attrs={'required': True, 'max_length': 30, 'class': 'select'}),
                                 label=_("Username"), error_messages={
-            'invalid': _("This value must contain only letters, numbers and underscores.")})
+                                    'invalid': _("This value must contain only letters, numbers and underscores.")})
     email = forms.EmailField(widget=forms.TextInput(attrs={'required': True, 'max_length': 30, 'class': 'select'}),
                              label=_("Email address"))
     password1 = forms.CharField(widget=forms.PasswordInput(
         attrs={'required': True, 'max_length': 30, 'render_value': False, 'class': 'select'}), label=_("Password"))
     password2 = forms.CharField(widget=forms.PasswordInput(
         attrs={'required': True, 'max_length': 30, 'render_value': False, 'class': 'select'}),
-                                label=_("Password (again)"))
+        label=_("Password (again)"))
     user_role = forms.ChoiceField(choices=role_choices)
-
-
-
-
-
 
     def clean_username(self):
         try:
-            user = User.objects.get(username__iexact=self.cleaned_data['username'])
+            user = User.objects.get(
+                username__iexact=self.cleaned_data['username'])
         except User.DoesNotExist:
             return self.cleaned_data['username']
-        raise forms.ValidationError(_("The username already exists. Please try another one."))
+        raise forms.ValidationError(
+            _("The username already exists. Please try another one."))
 
     def clean(self):
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] != self.cleaned_data['password2']:
-                raise forms.ValidationError(_("The two password fields did not match."))
+                raise forms.ValidationError(
+                    _("The two password fields did not match."))
         return self.cleaned_data
 
 
 class UploadFileForm(forms.Form):
-    title = forms.CharField(widget=forms.TextInput(attrs={'required': True, 'max_length': 30}), label=_("File Name"))
-    file = forms.FileField(label=_("File"),allow_empty_file=True)
+    title = forms.CharField(widget=forms.TextInput(
+        attrs={'required': True, 'max_length': 30}), label=_("File Name"))
+    file = forms.FileField(label=_("File"), allow_empty_file=True)
