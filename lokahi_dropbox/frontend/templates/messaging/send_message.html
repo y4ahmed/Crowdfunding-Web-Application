@@ -8,12 +8,14 @@
 </head>
 {% block head %}Send a Message{% endblock %}
 {% block content %}
+{% load bootstrap %}
 
 <div class = "jumbotron text-center">
 
   <form method = "POST" action ="." class = "form-group">{% csrf_token %}
       <table border="0">
-            {{ form.as_table }}
+                    {{ form|bootstrap }}
+
         </table>
       <input type="submit" class = "login" value="Send Message" />
   </form>

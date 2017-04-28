@@ -13,15 +13,15 @@ class RegistrationForm(forms.Form):
 
     username = forms.RegexField(regex=r'^\w+$',
                                 widget=forms.TextInput(
-                                    attrs={'required': True, 'max_length': 30, 'class': 'select'}),
+                                    attrs={'required': True, 'max_length': 30, 'class': 'form-control'}),
                                 label=_("Username"), error_messages={
                                     'invalid': _("This value must contain only letters, numbers and underscores.")})
-    email = forms.EmailField(widget=forms.TextInput(attrs={'required': True, 'max_length': 30, 'class': 'select'}),
+    email = forms.EmailField(widget=forms.TextInput(attrs={'required': True, 'max_length': 30, 'class': 'form-control'}),
                              label=_("Email address"))
     password1 = forms.CharField(widget=forms.PasswordInput(
-        attrs={'required': True, 'max_length': 30, 'render_value': False, 'class': 'select'}), label=_("Password"))
+        attrs={'required': True, 'max_length': 30, 'render_value': False, 'class': 'form-control'}), label=_("Password"))
     password2 = forms.CharField(widget=forms.PasswordInput(
-        attrs={'required': True, 'max_length': 30, 'render_value': False, 'class': 'select'}),
+        attrs={'required': True, 'max_length': 30, 'render_value': False, 'class': 'form-control'}),
         label=_("Password (again)"))
     user_role = forms.ChoiceField(choices=role_choices)
 

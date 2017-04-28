@@ -9,6 +9,7 @@
 {% block title %}Login{% endblock %}
 {% block head %}Login{% endblock %}
 {% block content %}
+{% load bootstrap %}
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
@@ -21,15 +22,16 @@
             <input type = "text" class = "select">
             -->
 
-        <table border="0" class = "table table-hover">
-            <tr><th><label for="id_username">Username:</label></th><td>{{ form.username }}</td></tr>
-            <tr><th><label for="id_password">Password:</label></th><td>{{ form.password }}</td></tr>
-        </table>
+            {{ form.username|bootstrap }}
+            {{ form.password|bootstrap }}
+
 
         <input type="submit" class = "login" value="Login" />
         <input type="hidden" name="next" value="/home" />
     </form>
-    <h3><a href="/register">Register</a></h3>
+                <a class = "btn btn-default" href="/register/">Don't have an account? Register</a>
+
+
     </div>
 
 {% endblock %}

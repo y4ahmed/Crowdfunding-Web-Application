@@ -49,7 +49,8 @@ INSTALLED_APPS = (
     'groups',
     'wall_post',
     'reports',
-    'search'
+    'search',
+    'bootstrapform',
 )
 
 MIDDLEWARE_CLASSES = (

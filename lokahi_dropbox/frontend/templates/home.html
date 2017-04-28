@@ -28,11 +28,11 @@
                 <a class = "btn btn-default" href="/view_reports/">View reports</a>
 
 
-             <a class = "btn btn-default" href="/send_message/">send message</a>
-             <a class = "btn btn-default" href="/receive_message/">receive message</a>
-             <a class = "btn btn-default" href="/groups/">groups</a>
-             <a class = "btn btn-default" href="/wall/">see the public wall</a>
-             <a class = "btn btn-default" href="/post/">make a post to the wall</a>
+             <a class = "btn btn-default" href="/send_message/">Send Message</a>
+             <a class = "btn btn-default" href="/receive_message/">Receive Message</a>
+             <a class = "btn btn-default" href="/groups/">Groups</a>
+             <a class = "btn btn-default" href="/wall/">See the Public Wall</a>
+             <a class = "btn btn-default" href="/post/">Make a Post to the Wall</a>
 
              </div>
       <form method="POST" action="search/">  {% csrf_token %}
@@ -57,7 +57,7 @@ asymmetric information and moral hazards.</p>
              <h2><p>You are a {{ user.user_role }}!</p></h2> -->
              </div>
     </div>
-        <a class = "btn btn-default" href="/logout/">Logout</a>
+        <h3><a class = "btn btn-default" href="/logout/">Logout</a></h3>
 
 {% endblock %}
 
