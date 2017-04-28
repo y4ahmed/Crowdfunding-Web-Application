@@ -6,14 +6,17 @@
 {% block title %}User Registration{% endblock %}
 {% block head %}User Registration{% endblock %}
 {% block content %}
-    <div class = "center-div2">
+{% load bootstrap %}
+
+    <div class = "jumbotron text-center">
     <form method="post" action=".">{% csrf_token %}
         <table border="0">
-            {{ form.as_table }}
+            {{ form|bootstrap }}
         </table>
         <input type="submit" class = "login" value="Register" />
     </form>
 <br>
-<h3><a href="/">Already have an account? Login</a></h3>
+        <a class = "btn btn-default" href="/">Already have an account? Login</a>
+
 </div>
 {% endblock %}

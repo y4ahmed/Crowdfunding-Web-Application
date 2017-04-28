@@ -8,24 +8,32 @@
 </head>
 {% block head %}Group{% endblock %}
 {% block content %}
-<div class = "center-div2">
-  <ul>
-    <h3>{{ group_name }}</h3>
+<div class = "jumbotron text-center">
+
+   <h3 class = "lead"> Group name: {{ group_name }}</h3>
+    <p class = "lead"> Members:</p>
 {% for member in members %}
     <li>{{ member.user.username }}</li>
 {% endfor %}
+    <br/>
+    <br/>
+    <p class = "lead">Add Group Members</p>
   <form method="POST" action="/add_members/">{% csrf_token %}
     <input type="text" name="new_members" />
     <input type="hidden" name="group_id" value={{group_id}} /><br>
-    <input type="submit" value="add" /><br>
+    <input class = "btn btn-default" type="submit" value="add" /><br>
   </form>
+
+    <br/>
   <form method="POST" action="/add_members/">{% csrf_token %}
     <input type="hidden" name="username" value={{username}} />
     <input type="hidden" name="group_id" value={{group_id}} /><br>
-    <input type="submit" value="exit" /><br>
+    <input class = "btn btn-default" type="submit" value="Leave Group" /><br>
   </form>
 </ul>
 <br>
 </div>
-<h3><a href="/home/">home</a></h3>
+<h3><a class = "btn btn-default" href="/home/">Home</a></h3>
+<h3><a class = "btn btn-default" href="/groups/">Groups Main Page</a>
+</h3>
 {% endblock %}

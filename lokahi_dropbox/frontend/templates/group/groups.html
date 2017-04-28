@@ -8,12 +8,14 @@
 </head>
 <body>
 
-    {% block head %}Groups !{% endblock %}
+    {% block head %}Groups{% endblock %}
     {% block content %}
-         <div class = "center-div">
-    <h3><a href="create_group/">create a group</a></h3>
-    <h3><a href="view_groups/">view all groups</a></h3>
-    <h3><a href="/home/">home</a></h3>
+         <div class = "jumbotron text-center">
+    <a class = "btn btn-default" href="create_group/">Create a Group</a>
+             <br><br/>
+    <a class = "btn btn-default" href="view_groups/">View all Groups</a>
+             <br><br/>
+    <a class = "btn btn-default"href="/home/">Home</a>
 {% endblock %}
 
 </div>

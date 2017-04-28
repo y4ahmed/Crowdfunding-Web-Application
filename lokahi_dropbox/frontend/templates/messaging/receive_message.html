@@ -6,26 +6,53 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <meta charset="UTF-8">
 </head>
-{% block head %}receive a message{% endblock %}
+{% block head %}Receive a message{% endblock %}
 {% block content %}
-<div class = "center-div2">
+{% load bootstrap %}
+<div class = "jumbotron text-center">
   <ul>
 {% for message in messages %}
-  <li>  Subject: {{ message.subject }} <br>    </li>
+     <p class = "lead"> Subject:  {{message.subject}} </p>
+      <p class = "lead">Body: {{message.message}}</p>
+            <p class = "lead">Sender: {{message.sender}}</p>
+
+      <!--
+      <table class = "table">
+          <tr>
+              Subject: {{message.subject}}
+          </tr>
+          <br/>
+          <tr>
+              Body: {{message.message}}
+          </tr>
+          <br/>
+          <tr>
+              Sender: {{message.sender}}
+          </tr>
+
+      </table>
+      --->
+  <!--<li class = "list-group-item">  Subject: {{ message.subject }} <br>
         Body: {{ message.message }} <br>
         From: {{ message.sender }}  <br>
+      </li> -->
+
       <form method="POST" action="/delete_message/">{% csrf_token %}
         <input type="hidden" name="message" value={{message.id}} />
-        <input type="submit" value="Delete" /><br>
+        <input class = "btn btn-default" type="submit" value="Delete" /><br>
       </form>
+      <br/>
       <form method="POST" action="/decrypt_message/">{% csrf_token %}
         <input type="hidden" name="message" value={{message.id}} />
-        <input type="submit" value="Decrypt" /><br>
+        <input class = "btn btn-default" type="submit" value="Decrypt" /><br>
       </form>
+      <br/>
+      <br/>
 {% endfor %}
 </ul>
 <br>
 </div>
-<h3><a href="/send_message/">send message</a></h3>
-<h3><a href="/home/">home</a></h3>
+<h3><a class = "btn btn-default" href="/send_message/">Send Message</a></h3>
+<h3><a class = "btn btn-default" href="/home/">Home</a>
+</h3>
 {% endblock %}
