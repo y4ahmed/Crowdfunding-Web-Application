@@ -1,6 +1,7 @@
 # Miscellaneous requirements for pip
 backports.shutil-get-terminal-size==1.0.0
 dj-database-url==0.4.2
+django-bootstrap-form==3.2.1
 Django==1.8
 gunicorn==19.0.0
 patterns==0.3
