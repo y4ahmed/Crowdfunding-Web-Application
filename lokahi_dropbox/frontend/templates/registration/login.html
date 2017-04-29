@@ -1,38 +1,37 @@
 {% extends "base.html" %}
 
-
+<html lang="en">
 <head>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 </head>
 <body>
-{% block title %}Login{% endblock %}
-{% block head %}Login{% endblock %}
-{% block content %}
-{% load bootstrap %}
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
-    <div class = "jumbotron text-center">
-        <form method="post" action="." class = "form-group">{% csrf_token %}
-            <!--
-            <label for="id_username">Username:</label>
-            <input type = "text" class = "select">
-            <label for="id_password">Password:</label>
-            <input type = "text" class = "select">
-            -->
-
-            {{ form.username|bootstrap }}
-            {{ form.password|bootstrap }}
-
-
-        <input type="submit" class = "login" value="Login" />
-        <input type="hidden" name="next" value="/home" />
-    </form>
-                <a class = "btn btn-default" href="/register/">Don't have an account? Register</a>
-
-
-    </div>
-
-{% endblock %}
+    {% block title %}
+        Login
+    {% endblock %}
+    {% block head %}
+        Login
+    {% endblock %}
+    {% block content %}
+        {% load bootstrap %}
+        {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        <div class = "jumbotron text-center">
+                <form method="post" action="." class="form-group">{% csrf_token %}
+                <!--
+                <label for="id_username">Username:</label>
+                <input type = "text" class = "select">
+                <label for="id_password">Password:</label>
+                <input type = "text" class = "select">
+                -->
+                {{ form.username|bootstrap }}
+                {{ form.password|bootstrap }}
+                <input type="submit" class = "login" value="Login" />
+                <input type="hidden" name="next" value="/home" />
+            </form>
+            <a class = "btn btn-default" href="/register/">Don't have an account? Register</a>
+        </div>
+    {% endblock %}
 </body>
+</html>

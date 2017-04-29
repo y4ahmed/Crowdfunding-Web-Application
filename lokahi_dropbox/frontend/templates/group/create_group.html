@@ -6,21 +6,25 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <meta charset="UTF-8">
 </head>
-{% block head %}Create a group{% endblock %}
-{% block content %}
-<div class = "jumbotron text-center">
-  <form method="post" action=".">{% csrf_token %}
-    Group Name:<br>
-    <input class = "form-control" type="text" name="group_name"><br>
-    Group members (comma seperated names):<br>
-    <input class = "form-control" type="text" name="member_list"><br>
-    Reports accessible (comma seperated names):<br>
-    <input class = "form-control" type="text" name="report_list"><br>
-    <input class = "btn btn default" type="submit" name="send">
-  </form>
-<br>
-</div>
-<h3><a class = "btn btn-default" href="/home/">Home</a></h3>
-<h3><a class = "btn btn-default" href="/groups/">Groups Main Page</a>
-</h3>
-{% endblock %}
+<body>
+    {% block head %}
+        Create a group
+    {% endblock %}
+    {% block content %}
+        <div class = "jumbotron text-center">
+            <form method="post" action=".">{% csrf_token %}
+                Group Name:<br />
+                <input class = "form-control" type="text" name="group_name"><br />
+                Group members (comma seperated names):<br />
+                <input class = "form-control" type="text" name="member_list"><br />
+                Reports accessible (comma seperated names):<br />
+                <input class = "form-control" type="text" name="report_list"><br />
+                <input class = "btn btn default" type="submit" name="send">
+            </form>
+            <br />
+        </div>
+        <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
+        <h3><a class = "btn btn-default" href="/groups/">Groups Main Page</a></h3>
+    {% endblock %}
+</body>
+</html>
