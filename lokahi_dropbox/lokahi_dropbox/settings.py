@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'site_manager',
     # Mist styling apps
     'bootstrapform',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (

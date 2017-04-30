@@ -73,9 +73,7 @@ def createReport(request):
             report_form = ReportForm(prefix="report_form")
             permissions_form = ReportPermissionsForm(prefix="permissions_form")
             file_formset = FileFormset(prefix="file_formset")
-        return render(request, 'reports/createReport.html',
-                      {'report_form': report_form, 'permissions_form': permissions_form, 'file_formset': file_formset,
-                       'has_messages': has_messages, 'username': username})
+        return render(request, '/reports/create_Report.html',{'report_form': report_form, 'permissions_form': permissions_form, 'file_formset': file_formset, 'username': username})
 
     else:
         return redirect('viewReport', {'has_messages': has_messages, 'username': username})

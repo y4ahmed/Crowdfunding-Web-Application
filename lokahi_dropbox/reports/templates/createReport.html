@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
 {% block content %}
     <script type="text/html" id="file-template">
     <div id="file-__prefix__" style="margin-top:15px;margin-bottom:15px;">
@@ -31,10 +32,11 @@
             $("label[for='id_file_formset-"+count+"-upload']").hide();
             $("label[for='id_file_formset-"+count+"-DELETE']").hide();
             $("input[id='id_file_formset-"+count+"-DELETE']").hide();
-        });
+       });
+
     });
     </script>
-    <form method="post" enctype="multipart/form-data" class="form" action="/createReport/">
+    <form method="post" enctype="multipart/form-data" class="form" action="/create_Report/">
         {% csrf_token %}
         <div>
             {% bootstrap_form report_form %}
