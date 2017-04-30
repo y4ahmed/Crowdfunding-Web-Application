@@ -1,12 +1,18 @@
 # Miscellaneous requirements for pip
+appnope==0.1.0
 backports.shutil-get-terminal-size==1.0.0
+codegen==1.0
 dj-database-url==0.4.2
+django==1.8
 django-bootstrap-form==3.2.1
-Django==1.8
+et-xmlfile==1.0.1
 gunicorn==19.0.0
+ipython-genutils==0.1.0
+jupyter-client==4.4.0
+jupyter-console==5.0.0
+jupyter-core==4.2.1
 patterns==0.3
-redis==2.10.5
+prompt-toolkit==1.0.9
 rope-py3k==0.9.4.post1
 tables==3.3.0
-# xlwings==0.10.2
 whitenoise==3.3.0
