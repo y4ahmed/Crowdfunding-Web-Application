@@ -96,9 +96,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lokahi_dropbox',
-        'USER': 'admin',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'USER': 'ilscfhbnblgylf',
+        'PASSWORD': 'b794a252ec1a81e2f72f19f46e5ff68c62bf318b3f9759aeb9735a94456f149e',
+        'HOST': 'ec2-54-235-168-152',
         'PORT': '5432',
     }
 }
