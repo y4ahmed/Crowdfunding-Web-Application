@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^wall/', include('wall_post.urls'), name='wall'),
     url(r'^manage_site/', include('site_manager.urls'), name='manage_site'),
     url(r'^createReport/', createReport),
+    url(r'^viewReport/',viewReport),
     # Search views
     url(r'^home/search/$', basic_search),
 ]
