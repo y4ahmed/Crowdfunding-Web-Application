@@ -98,7 +98,7 @@ DATABASES = {
         'NAME': 'lokahi_dropbox',
         'USER': 'ilscfhbnblgylf',
         'PASSWORD': 'b794a252ec1a81e2f72f19f46e5ff68c62bf318b3f9759aeb9735a94456f149e',
-        'HOST': 'ec2-54-235-168-152',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
