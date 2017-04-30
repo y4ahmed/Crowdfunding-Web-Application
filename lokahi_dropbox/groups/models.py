@@ -1,8 +1,13 @@
+from django import forms
 from django.db import models
-from frontend.models import *
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
+
+from frontend.models import BaseUser
 
 # Create your models here.
+
+
 class Group(models.Model):
     group_name = models.CharField(max_length=30,)
     member_list = models.ManyToManyField(BaseUser)
@@ -16,7 +21,8 @@ class Group(models.Model):
                 self.member_list.add(base_user)
             except User.DoesNotExist:
                 # TODO: fix the error page redirection
-                raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
+                raise forms.ValidationError(
+                    _('Invalid receiver name. Try again.'), code='invalid')
 
     def add_reports(self, reports):
         for r in reports:

@@ -1,9 +1,10 @@
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response, render
-from groups.forms import *
 from django.contrib.auth.models import User
 
-# Create your views here.
+from groups.forms import *
+from frontend.models import BaseUser
+from groups.models import Group
 
 
 @csrf_protect
@@ -88,7 +89,18 @@ def add_members(request):
                         id=group.id, member_list=base_user))
 
                     if is_duplicate_user > 0:
-                        return render(request, 'group/each_group.html', {'group_name': group.group_name, 'members': group.member_list.all(), 'group_id': group.id, 'username': request.user.username, 'is_duplicate': True, 'duplicate_name': m})
+                        return render(
+                            request,
+                            'group/each_group.html',
+                            {
+                                'group_name': group.group_name,
+                                'members': group.member_list.all(),
+                                'group_id': group.id,
+                                'username': request.user.username,
+                                'is_duplicate': True,
+                                'duplicate_name': m
+                            }
+                        )
                         # raise Error("user" + user.username + "is already a member of the group")
 
                     group.member_list.add(base_user)
@@ -96,7 +108,15 @@ def add_members(request):
                     return render(request, 'group/each_group.html', {'group_name': group.group_name, 'members': group.member_list.all(), 'group_id': group.id, 'username': request.user.username, 'is_invalid': True, 'invalid_name': m})
                     # raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
 
-            return render(request, 'group/each_group.html', {'group_name': group.group_name, 'members': group.member_list.all(), 'group_id': group.id, 'username': request.user.username})
+            return render(
+                request, 'group/each_group.html',
+                {
+                    'group_name': group.group_name,
+                    'members': group.member_list.all(),
+                    'group_id': group.id,
+                    'username': request.user.username
+                }
+            )
 
         form = ExitGroupForm(data=request.POST)
         if form.is_valid():
