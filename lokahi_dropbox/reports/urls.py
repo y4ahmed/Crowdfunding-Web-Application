@@ -3,7 +3,7 @@ rom django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.viewReports, name='viewReports'),
+    url(r'^$', views.viewReport, name='viewReport'),
     #view Reports
     url(r'^create_Reports/$', views.createReport, name='createReport'),
     #createReports

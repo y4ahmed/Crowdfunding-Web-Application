@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+
+    <h1 style="width: 90%; padding: 0.5%;border: solid black 2px; background-color: green; font-size: 36pt"> {{ report.title }} </h1>
+    <h2 style="margin-left: 5%;">
+        <p2><b>Report Date: </b>{{ report.time_created }}</p2>
+    </h2>
+    <h2 style="margin-left: 5%;">
+        <p2><b>Company Name: </b>{{ report.compName }}</p2>
+    </h2>
+    <h2 style="margin-left: 5%" ;>
+        <p2><b>Company CEO: </b>{{ report.ceo }}</p2>
+    </h2>
+    <h2 style="margin-left: 5%">
+        <p2><b>Company Phone: </b>{{ report.phoneNum }}</p2>
+    </h2>
+    <h2 style="margin-left: 5%">
+        <p2><b>Company Location: </b>{{ report.location }}</p2>
+    </h2>
+    <h2 style="margin-left: 5%">
+        <p2><b>Company Country: </b>{{ report.country }}</p2>
+    </h2>
+    <h2 style="margin-left: 5%">
+        <p2><b>Sector: </b>{{ report.sector }}</p2>
+    </h2>
+    <h2 style="margin-left: 5%">
+        <p2><b>Current Projects: </b>{{ report.projects }}</p2>
+    </h2>
+
+    {% if unencrypted_files %}
+        <p style="font-size:24px;margin-left: 5%">
+            Attached files:
+        </p>
+        {% for f in unencrypted_files %}
+            <p style="font-size: 16px;margin-top:15px;margin-left: 5%;">{{f.title}} -- <a href="{{f.upload.url}}" download>Download</a></p>
+        {% endfor %}
+    {% endif %}
+    {% if has_encrypted_files %}
+        <h3><a> This report has encrypted files. Need File Download App<a></h3>
+    {% endif %}
+
+    {% if site_manager %}
+    <p2><a style="margin-left: 5%; margin-top:1%; background-color: green;" class="btn btn-primary btn-lg"
+           href="{% url 'editReport' report.pk %}" role="button">Edit Report</a></p2>
+        <p2><a style="margin-left: 5%; margin-top:1%; background-color: red;" class="btn btn-primary btn-lg"
+               href="{% url 'deleteReport' report.pk %}" role="button">Delete Report</a></p2>
+    {% endif %}
+    <p2 style="margin-left: 5%; margin-top:1%; background-color: green;" class="btn btn-primary btn-lg" onClick="javascript:history.go(-1);"
+                type=button>Back</p2>
+
+{% endblock %}
