@@ -21,12 +21,12 @@ To deploy the web application, follow these steps:
 # Clone the repo locally
 git clone https://github.com/KeanF/cs3240-s17-team21.git
 
-# Head into the 'lokahi_dropbox' directory
-# Create a virtual environment. My virtual environment is called '3240'
+# Move into the 'lokahi_dropbox' directory
+# Create a virtual environment. My virtual environment is called 'cs3240'
 conda create --name cs3240 python=3.5 --file conda-requirements.txt
 
-# Activate virutal environment
-source activate 3240
+# Activate virtual environment
+source activate cs3240
 
 # Install remaining required modules
 pip install -r requirements.txt
@@ -36,4 +36,4 @@ python manage.py loaddata fixtures/users.json
 python manage.py loaddata fixtures/base_users.json
 
 # Run the application through Heroku
-heroku local web 
+heroku local web
