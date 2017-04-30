@@ -60,7 +60,6 @@ def logout_page(request):
     return HttpResponseRedirect('/')
 
 
-@login_required
 def home(request):
     base = BaseUser.objects.get(user=request.user)
     return render_to_response(

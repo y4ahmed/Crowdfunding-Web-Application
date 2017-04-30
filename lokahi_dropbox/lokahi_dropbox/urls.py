@@ -1,13 +1,14 @@
 from django.conf.urls import include, url
-from django.contrib import admin
+# from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from search.views import *
 
+# Regular website patterns
 urlpatterns = [
-    url(r'^$', 'django.contrib.auth.views.login'),
+    url(r'^$', 'django.contrib.auth.views.login', name='login'),
     # If user is not login it will redirect to login page
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
-    url(r'^admin/', include(admin.site.urls)),
+    # url(r'^admin/', include(admin.site.urls)),
 
     url(r'^', include('frontend.urls'), name='home'),
     url(r'^messaging/', include('messaging.urls'), name='messaging'),
@@ -16,12 +17,7 @@ urlpatterns = [
 
     # Search views
     url(r'^home/search/$', basic_search),
-] + staticfiles_urlpatterns()
+]
 
-# urlpatterns = [
-#     # Examples:
-#     # url(r'^$', 'lokahi_dropbox.views.home', name='home'),
-#     # url(r'^blog/', include('blog.urls')),
-#
-#     url(r'^admin/', include(admin.site.urls)),
-# ]
+# Serve static files
+urlpatterns += staticfiles_urlpatterns()

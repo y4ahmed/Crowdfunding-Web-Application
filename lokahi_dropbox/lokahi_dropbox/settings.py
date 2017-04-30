@@ -62,6 +62,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    # Custom Login Middleware (comment if testing other pages...)
+    'lokahi_dropbox.middleware.login_middleware.RequireLoginMiddleware'
 )
 
 TEMPLATE_DIRS = (
@@ -141,3 +143,18 @@ FIXTURE_DIRS = (
 # STATICFILES_DIRS = (
 # '/Users/danielbrown/Desktop/project/cs3240-s17-team21/lokahi_dropbox/frontend/static',
 # )
+
+# For login middleware (comment if testing...)
+LOGIN_REQUIRED_URLS = (
+    r'^/home/.*$',
+    r'^/messaging/.*',
+    r'^/groups/.*',
+    r'^/wall/.*',
+)
+
+LOGIN_REQUIRED_URLS_EXCEPTIONS = (
+    r'^$',
+    r'^register/.*$'
+    r'^logout/$'
+    r'^/accounts/login/?next=.*/$',
+)
