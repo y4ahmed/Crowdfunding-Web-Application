@@ -22,6 +22,13 @@
                 <input class = "btn btn default" type="submit" name="send">
             </form>
             <br />
+            {% if duplicate_name == True %}
+              <b><font size="3" color="red">A group with that name already exists, please select another one.</font></b>
+            {% endif %}
+            <br />
+            {% if invalid_user == True %}
+              <b><font size="3" color="red">No user called {{ invalid_name }} </font></b>
+            {% endif %}
         </div>
         <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
         <h3><a class = "btn btn-default" href="/groups/">Groups Main Page</a></h3>

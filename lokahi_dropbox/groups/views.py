@@ -26,9 +26,9 @@ def create_group(request):
             is_duplicate = len(Group.objects.filter(group_name=group_name))
 
             if is_duplicate > 0:
-                # TODO : raise error !
                 # a group with this name already exists
-                raise Error("group duplicate, group names must be unique")
+                return render(request, 'group/create_group.html', {'duplicate_name': True})
+                # raise Error("group duplicate, group names must be unique")
 
             group = Group.objects.create(group_name=group_name)
 
@@ -38,8 +38,8 @@ def create_group(request):
                     base_user = BaseUser.objects.get(user=user)
                     group.member_list.add(base_user)
                 except User.DoesNotExist:
-                    # TODO: fix the error page redirection
-                    raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
+                    return render(request, 'group/create_group.html', {'invalid_user': True, 'invalid_name': m}, )
+                    # raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
 
             base_user = BaseUser.objects.get(user=request.user)
             groups = Group.objects.filter(member_list=base_user)
@@ -81,13 +81,14 @@ def add_members(request):
                     is_duplicate_user = len(Group.objects.filter(id=group.id, member_list=base_user))
 
                     if is_duplicate_user > 0:
-                        # TODO: fix the error page redirection
-                        raise Error("user" + user.username + "is already a member of the group")
+                        return render(request, 'group/each_group.html', {'group_name':group.group_name, 'members':group.member_list.all(), 'group_id':group.id, 'username':request.user.username, 'is_duplicate': True, 'duplicate_name': m})
+                        # raise Error("user" + user.username + "is already a member of the group")
 
                     group.member_list.add(base_user)
                 except User.DoesNotExist:
-                    # TODO: fix the error page redirection
-                    raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
+                    return render(request, 'group/each_group.html', {'group_name':group.group_name, 'members':group.member_list.all(), 'group_id':group.id, 'username':request.user.username, 'is_invalid': True, 'invalid_name': m})
+                    # raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
+
             return render(request, 'group/each_group.html', {'group_name':group.group_name, 'members':group.member_list.all(), 'group_id':group.id, 'username':request.user.username})
 
         form = ExitGroupForm(data=request.POST)
