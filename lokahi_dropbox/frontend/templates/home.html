@@ -10,6 +10,7 @@
     <title>Lokahi Home</title>
 </head>
 <body>
+    {% block title %}Lokahi Home{% endblock %}
     {% block head %}Welcome to Lokahi, {{ user.user.username }}{% endblock %}
     {% block content %}
     <div class="jumbotron text-center">
