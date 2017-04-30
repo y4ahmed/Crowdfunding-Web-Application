@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% block head %}Group{% endblock %}
+    {% block content %}
+    <div class = "jumbotron text-center">
+        <h3 class = "lead"> Group name: {{ group_name }}</h3>
+        <p class = "lead"> Members:</p>
+        {% for member in members %}
+            <li>{{ member.user.username }}</li>
+        {% endfor %}
+        <br />
+        <br />
+        <p class = "lead">Add Group Members</p>
+        <form method="POST" action="/add_members/">{% csrf_token %}
+            <input type="text" name="new_members" />
+            <input type="hidden" name="group_id" value={{group_id}} /><br />
+            <input class = "btn btn-default" type="submit" value="add" /><br />
+        </form>
+        <br />
+        {% if is_duplicate == True %}
+          <b><font size="3" color="red">User {{ duplicate_name }} is already a member </font></b>
+        {% endif %}
+        {% if is_invalid == True %}
+          <b><font size="3" color="red">User {{ invalid_name }} doen not exist </font></b>
+        {% endif %}
+        <br />
+        <form method="POST" action="/add_members/">{% csrf_token %}
+            <input type="hidden" name="username" value={{username}} />
+            <input type="hidden" name="group_id" value={{group_id}} /><br />
+            <input class = "btn btn-default" type="submit" value="Leave Group" /><br />
+        </form>
+        <br />
+    </div>
+    <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
+    <h3><a class = "btn btn-default" href="/groups/">Groups Main Page</a></h3>
+    {% endblock %}
+</body>
+</html>

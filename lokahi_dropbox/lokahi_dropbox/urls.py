@@ -1,35 +1,20 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from frontend.views import *
-from messaging.views import *
-from groups.views import *
-from wall_post.views import *
 from search.views import *
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^$', 'django.contrib.auth.views.login'),
-    url(r'^logout/$', logout_page),
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'), # If user is not login it will redirect to login page
-    url(r'^register/$', register),
-    url(r'^register/success/$', register_success),
-    url(r'^home/$', home),
+    # If user is not login it will redirect to login page
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^upload', upload_file),
-    url(r'^upload_success', upload_success),
-    url(r'^send_message', send_message),
-    url(r'^receive_message', receive_message),
-    url(r'^groups/$', groups),
-    url(r'^groups/create_group/$', create_group),
-    url(r'^groups/view_groups/$', view_group),
-    url(r'^delete_message/$', delete_message),
-    url(r'^edit_group/$', edit_group),
-    url(r'^add_members/$', add_members),
-    url(r'^decrypt_message/$', decrypt_message),
-    url(r'^post/$', post),
-    url(r'^wall/$', view_wall),
-    url(r'^make_post/$', make_post),
-    url(r'^create_report/$', home),
-    url(r'^view_reports/$', home),
+
+    url(r'^', include('frontend.urls'), name='home'),
+    url(r'^messaging/', include('messaging.urls'), name='messaging'),
+    url(r'^groups/', include('groups.urls'), name='groups'),
+    url(r'^wall/', include('wall_post.urls'), name='wall'),
+
+    # Search views
     url(r'^home/search/$', basic_search),
 )
 

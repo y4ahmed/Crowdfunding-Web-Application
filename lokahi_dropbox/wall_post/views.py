@@ -5,15 +5,22 @@ from django.contrib.auth.models import User
 from frontend.models import *
 from django.http import HttpResponseRedirect
 
-# Create your views here.
+
+@csrf_protect
+def wall(request):
+    return render(request, 'wall_post/wall_post.html')
+
+
 @csrf_protect
 def post(request):
     return render(request, 'wall_post/post.html', {'form': PostForm(request)})
+
 
 @csrf_protect
 def view_wall(request):
     posts = Post.objects.all()
     return render(request, 'wall_post/view_wall.html', {'posts': posts})
+
 
 @csrf_protect
 def make_post(request):
