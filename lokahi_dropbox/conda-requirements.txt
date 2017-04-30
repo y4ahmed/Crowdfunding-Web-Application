@@ -1,6 +1,6 @@
 # Miscellaneous requirements for conda
 # Some packages only exist on Windows/Mac/Linux
-alabaster==0.7.9
+alabaster==0.7.9ear9
 anaconda-client==1.6.0
 anaconda-navigator==1.4.3
 # appnope==0.1.0
@@ -88,7 +88,6 @@ pexpect==4.2.1
 pickleshare==0.7.4
 Pillow==4.0.0
 ply==3.9
-postgresql=9.5.4
 prompt_toolkit==1.0.9
 psutil==5.0.1
 psycopg2==2.6.2
