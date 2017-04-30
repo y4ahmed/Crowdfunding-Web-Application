@@ -63,7 +63,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     # Custom Login Middleware (comment if testing other pages...)
-    'lokahi_dropbox.middleware.login_middleware.RequireLoginMiddleware'
+    # 'lokahi_dropbox.middleware.login_middleware.RequireLoginMiddleware'
 )
 
 TEMPLATE_DIRS = (
