@@ -14,6 +14,10 @@
         {% load bootstrap %}
         <div class = "jumbotron text-center">
             <ul>
+              {% if is_decrypted == True %}
+                <b><font size="3" color="red">Message is already decrypted</font></b>
+              {% endif %}
+              <br />
                 {% for message in messages %}
                     <p class="lead">Subject: {{message.subject}}</p>
                     <p class="lead">Body: {{message.message}}</p>

@@ -20,6 +20,9 @@
                 <input type="submit" class = "login" value="Send Message" />
             </form>
             <br />
+            {% if is_yourself == True %}
+              <b><font size="5" color="red">CANNOT SEND A MESSAGE TO YOURSELF!</font></b>
+            {% endif %}
         </div>
         <a class = "btn btn-default" href="/receive_message/">Receive Message</a>
         <a class = "btn btn-default" href="/home/">Home</a>

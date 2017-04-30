@@ -18,8 +18,8 @@ def send_message(request):
             p = form.cleaned_data['subject']
 
             if r == s:
-                # TODO: fix error page
-                raise Error("cannot send a message to yourself")
+                return render(request, 'messaging/send_message.html', {'form': MessageForm(), 'is_yourself': True})
+                # raise Error("cannot send a message to yourself")
 
             if form.cleaned_data['encrypt']:
                 # encrypt
@@ -28,14 +28,14 @@ def send_message(request):
                 receiver_RSAkey = RSA.importKey(receiver_base_user.RSAkey)
                 m = str(receiver_RSAkey.encrypt(m.encode('utf-8'), "not needed".encode('utf-8'))[0])
                 message = Message.objects.create(subject=p,message=m, receiver=r, sender=s, encrypt=True)
-                return render(request, 'messaging/send_message.html', {'form': MessageForm()})
+                return render(request, 'messaging/send_message.html', {'form': MessageForm(), 'is_yourself': False})
             else:
                 # leave as the same
                 message = Message.objects.create(subject=p,message=m, receiver=r, sender=s, encrypt=False)
-                return render(request, 'messaging/send_message.html', {'form': MessageForm()})
+                return render(request, 'messaging/send_message.html', {'form': MessageForm(), 'is_yourself': False})
     else:
         form = MessageForm()
-        return render(request,'messaging/send_message.html', {'form': form})
+        return render(request,'messaging/send_message.html', {'form': form, 'is_yourself': False})
 
 @csrf_protect
 def receive_message(request):
@@ -77,8 +77,8 @@ def decrypt_message(request):
                 message.save()
             else:
                 # throw error
-                # TODO: fix error page
-                raise Error("message is already decrypted")
+                messages = Message.objects.filter(receiver=request.user.username)
+                return render(request, 'messaging/receive_message.html',{'messages': messages, 'is_decrypted': True})
 
             messages = Message.objects.filter(receiver=request.user.username)
-            return render(request, 'messaging/receive_message.html',{'messages': messages})
+            return render(request, 'messaging/receive_message.html',{'messages': messages, 'is_decrypted': False})
