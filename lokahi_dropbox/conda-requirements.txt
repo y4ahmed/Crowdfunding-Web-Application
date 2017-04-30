@@ -1,5 +1,5 @@
 # Miscellaneous conda-requirements
-postgresql=9.5.4=2
+postgresql=9.5.4
 _license=1.1=py35_1
 alabaster=0.7.9=py35_0
 anaconda-client=1.6.0=py35_0
