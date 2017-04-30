@@ -1,9 +1,9 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from search.views import *
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', 'django.contrib.auth.views.login'),
     # If user is not login it will redirect to login page
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
@@ -16,7 +16,7 @@ urlpatterns = patterns(
 
     # Search views
     url(r'^home/search/$', basic_search),
-)
+] + staticfiles_urlpatterns()
 
 # urlpatterns = [
 #     # Examples:

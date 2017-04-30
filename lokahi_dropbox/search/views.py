@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from frontend.models import *
 
 # Create your views here.
+
+
 @csrf_protect
 def basic_search(request):
     if request.method == "POST":
