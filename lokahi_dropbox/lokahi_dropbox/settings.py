@@ -44,12 +44,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Project apps
     'frontend',
     'messaging',
     'groups',
     'wall_post',
     'reports',
     'search',
+    'site_manager',
+    # Mist styling apps
     'bootstrapform',
 )
 
@@ -63,7 +66,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     # Custom Login Middleware (comment if testing other pages...)
-    # 'lokahi_dropbox.middleware.login_middleware.RequireLoginMiddleware'
+    'lokahi_dropbox.middleware.login_middleware.RequireLoginMiddleware'
 )
 
 TEMPLATE_DIRS = (
@@ -150,6 +153,7 @@ LOGIN_REQUIRED_URLS = (
     r'^/messaging/.*',
     r'^/groups/.*',
     r'^/wall/.*',
+    r'^/manage_site/.*',
 )
 
 LOGIN_REQUIRED_URLS_EXCEPTIONS = (

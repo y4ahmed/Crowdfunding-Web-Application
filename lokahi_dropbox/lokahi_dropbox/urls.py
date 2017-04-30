@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^messaging/', include('messaging.urls'), name='messaging'),
     url(r'^groups/', include('groups.urls'), name='groups'),
     url(r'^wall/', include('wall_post.urls'), name='wall'),
+    url(r'^manage_site/', include('site_manager.urls'), name='manage_site'),
 
     # Search views
     url(r'^home/search/$', basic_search),

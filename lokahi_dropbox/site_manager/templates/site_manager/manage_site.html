@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% block title %}Manage Site{% endblock %}
+    {% block head %}Manage Site{% endblock %}
+    {% block content %}{% load bootstrap %}
+    <div class = "jumbotron text-center">
+    </div>
+    <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
+    {% endblock %}
+</body>
+</html>
