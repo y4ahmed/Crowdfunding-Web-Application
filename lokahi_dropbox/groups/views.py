@@ -4,9 +4,12 @@ from groups.forms import *
 from django.contrib.auth.models import User
 
 # Create your views here.
+
+
 @csrf_protect
 def groups(request):
     return render(request, 'group/groups.html',)
+
 
 def create_group(request):
     if request.method == 'POST':
@@ -44,14 +47,16 @@ def create_group(request):
             base_user = BaseUser.objects.get(user=request.user)
             groups = Group.objects.filter(member_list=base_user)
 
-        return render(request, 'group/view_group.html', {'groups':groups})
+        return render(request, 'group/view_group.html', {'groups': groups})
     else:
         return render(request, 'group/create_group.html',)
+
 
 def view_group(request):
     base_user = BaseUser.objects.get(user=request.user)
     groups = Group.objects.filter(member_list=base_user)
-    return render(request, 'group/view_group.html', {'groups':groups})
+    return render(request, 'group/view_group.html', {'groups': groups})
+
 
 def edit_group(request):
     if request.method == 'POST':
@@ -59,7 +64,8 @@ def edit_group(request):
         if form.is_valid():
             g = Group.objects.get(id=form.cleaned_data['group_id'])
             member_list = g.member_list.all()
-            return render(request, 'group/each_group.html', {'group_name':g.group_name, 'members':member_list, 'group_id':g.id, 'username':request.user.username})
+            return render(request, 'group/each_group.html', {'group_name': g.group_name, 'members': member_list, 'group_id': g.id, 'username': request.user.username})
+
 
 def add_members(request):
     if request.method == 'POST':
@@ -78,26 +84,28 @@ def add_members(request):
                 try:
                     user = User.objects.get(username__iexact=m)
                     base_user = BaseUser.objects.get(user=user)
-                    is_duplicate_user = len(Group.objects.filter(id=group.id, member_list=base_user))
+                    is_duplicate_user = len(Group.objects.filter(
+                        id=group.id, member_list=base_user))
 
                     if is_duplicate_user > 0:
-                        return render(request, 'group/each_group.html', {'group_name':group.group_name, 'members':group.member_list.all(), 'group_id':group.id, 'username':request.user.username, 'is_duplicate': True, 'duplicate_name': m})
+                        return render(request, 'group/each_group.html', {'group_name': group.group_name, 'members': group.member_list.all(), 'group_id': group.id, 'username': request.user.username, 'is_duplicate': True, 'duplicate_name': m})
                         # raise Error("user" + user.username + "is already a member of the group")
 
                     group.member_list.add(base_user)
                 except User.DoesNotExist:
-                    return render(request, 'group/each_group.html', {'group_name':group.group_name, 'members':group.member_list.all(), 'group_id':group.id, 'username':request.user.username, 'is_invalid': True, 'invalid_name': m})
+                    return render(request, 'group/each_group.html', {'group_name': group.group_name, 'members': group.member_list.all(), 'group_id': group.id, 'username': request.user.username, 'is_invalid': True, 'invalid_name': m})
                     # raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
 
-            return render(request, 'group/each_group.html', {'group_name':group.group_name, 'members':group.member_list.all(), 'group_id':group.id, 'username':request.user.username})
+            return render(request, 'group/each_group.html', {'group_name': group.group_name, 'members': group.member_list.all(), 'group_id': group.id, 'username': request.user.username})
 
         form = ExitGroupForm(data=request.POST)
         if form.is_valid():
-            user = User.objects.get(username__iexact=form.cleaned_data['username'])
+            user = User.objects.get(
+                username__iexact=form.cleaned_data['username'])
             base_user = BaseUser.objects.get(user=user)
             group = Group.objects.get(id=form.cleaned_data['group_id'])
 
             group.member_list.remove(base_user)
 
             groups = Group.objects.filter(member_list=base_user)
-            return render(request, 'group/view_group.html', {'groups':groups})
+            return render(request, 'group/view_group.html', {'groups': groups})

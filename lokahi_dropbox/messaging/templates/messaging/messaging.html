@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+    {% block head %}Messaging{% endblock %}
+    {% block content %}
+    <div class = "jumbotron text-center">
+        <a class = "btn btn-default" href="send_message/">Send a Message</a>
+        <br /><br />
+        <a class = "btn btn-default" href="receive_message/">Receive a Message</a>
+        <br /><br />
+        <a class = "btn btn-default"href="/home/">Home</a>
+    </div>
+    {% endblock %}
+</body>
+</html>

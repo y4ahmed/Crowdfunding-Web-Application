@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% block head %}THE WALL{% endblock %}
+    {% block content %}
+    <div class = "center-div2">
+        <ul>
+            {% for post in posts %}
+                <li>{{ post.message }}<br /></li>
+                From: {{ post.sender }}<br />
+            {% endfor %}
+        </ul>
+        <br />
+    </div>
+    <h3><a href="/wall/">Wall</a></h3>
+    <h3><a href="/home/">Home</a></h3>
+    {% endblock %}
+</body>
+</html>
