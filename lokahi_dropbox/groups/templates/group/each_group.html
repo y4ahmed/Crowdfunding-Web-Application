@@ -18,7 +18,7 @@
         <br />
         <br />
         <p class = "lead">Add Group Members</p>
-        <form method="POST" action="/add_members/">{% csrf_token %}
+        <form method="POST" action="/groups/add_members/">{% csrf_token %}
             <input type="text" name="new_members" />
             <input type="hidden" name="group_id" value={{group_id}} /><br />
             <input class = "btn btn-default" type="submit" value="add" /><br />
@@ -31,7 +31,7 @@
           <b><font size="3" color="red">User {{ invalid_name }} doen not exist </font></b>
         {% endif %}
         <br />
-        <form method="POST" action="/add_members/">{% csrf_token %}
+        <form method="POST" action="/groups/add_members/">{% csrf_token %}
             <input type="hidden" name="username" value={{username}} />
             <input type="hidden" name="group_id" value={{group_id}} /><br />
             <input class = "btn btn-default" type="submit" value="Leave Group" /><br />

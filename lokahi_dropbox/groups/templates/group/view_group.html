@@ -12,7 +12,7 @@
     <div class = "jumbotron text-center">
         {% for group in groups %}
             <p class = "lead"> Group name: {{ group.group_name }}</p>
-            <form method="POST" action="/edit_group/">{% csrf_token %}
+            <form method="POST" action="/groups/edit_group/">{% csrf_token %}
                 <input class = "btn btn-default" type="submit" value="Edit" /><br />
                 <input type="hidden" name="group_id" value={{group.id}} /><br />
             </form>
