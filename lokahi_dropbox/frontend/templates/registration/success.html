@@ -1,13 +1,19 @@
+<html lang="en">
 <head>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 </head>
-{% extends "base.html" %}
-{% block title %}Registration Successful{% endblock %}
-{% block head %}
- Registration Completed Successfully
-{% endblock %}
-{% block content %}
-    <h2>Thank you for registering.</h2>
-    <h3><a class = "btn btn-default" href="/">Login</a></h3>
-{% endblock %}
+<body>
+    {% extends "base.html" %}
+    {% block title %}
+        Registration Successful
+    {% endblock %}
+    {% block head %}
+        Registration Completed Successfully
+    {% endblock %}
+    {% block content %}
+        <h2>Thank you for registering.</h2>
+        <h3><a class = "btn btn-default" href="/">Login</a></h3>
+    {% endblock %}
+</body>
+</html>

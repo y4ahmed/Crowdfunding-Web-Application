@@ -7,16 +7,15 @@
     <meta charset="UTF-8">
     <title>Upload Files</title>
 </head>
-{% block title %}TEST{% endblock %}
-{% block head %}TEST{% endblock %}
-{% block content %}
-<h1>Hello</h1>
-
-<form method = "POST" action = "" enctype="multipart/form-data"> {% csrf_token %}
-    {{ form.as_p }}
+<body>
+    {% block title %}TEST{% endblock %}
+    {% block head %}TEST{% endblock %}
+    {% block content %}
+        <h1>Hello</h1>
+        <form method = "POST" action = "" enctype="multipart/form-data">
+            {% csrf_token %}{{ form.as_p }}
             <input type="submit" class = "login" value="Upload" />
-
-</form>
-{% endblock %}
+        </form>
+    {% endblock %}
 </body>
 </html>

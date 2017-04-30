@@ -6,21 +6,23 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <meta charset="UTF-8">
 </head>
-{% block head %}Send a Message{% endblock %}
-{% block content %}
-{% load bootstrap %}
-
-<div class = "jumbotron text-center">
-
-  <form method = "POST" action ="." class = "form-group">{% csrf_token %}
-      <table border="0">
-                    {{ form|bootstrap }}
-
-        </table>
-      <input type="submit" class = "login" value="Send Message" />
-  </form>
-<br>
-</div>
-<a class = "btn btn-default" href="/receive_message/">Receive Message</a>
-<a class = "btn btn-default" href="/home/">Home</a>
-{% endblock %}
+<body>
+    {% block head %}
+        Send a Message
+    {% endblock %}
+    {% block content %}
+        {% load bootstrap %}
+        <div class = "jumbotron text-center">
+            <form method = "POST" action ="." class = "form-group">{% csrf_token %}
+                <table border="0">
+                {{ form|bootstrap }}
+                </table>
+                <input type="submit" class = "login" value="Send Message" />
+            </form>
+            <br />
+        </div>
+        <a class = "btn btn-default" href="/receive_message/">Receive Message</a>
+        <a class = "btn btn-default" href="/home/">Home</a>
+    {% endblock %}
+</body>
+</html>
