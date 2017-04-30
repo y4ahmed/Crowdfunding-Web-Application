@@ -1,37 +1,34 @@
 from django import forms
-from .models import Report
-#pip install django-multiupload  or add to requirements.txt (yusuf)
-from multiupload.fields import MultiFileField
-from .models import Report, File
+from django.contrib.auth.models import User
+from django.forms import ModelForm
+from django.forms.widgets import CheckboxSelectMultiple
 
-class reportForm(forms.Form):
-    tile = forms.CharField(label="Report Title: ", max_length=255)
-    compName = forms.CharField(label="Company Name: ", max_length=255)
-    ceo = forms.CharField(label="CEO: ", max_length=255)
-    phoneNum = forms.NumberInput(blank=True)
-    email = forms.CharField(label="CEO: ", max_length=255)
-    location = forms.CharField(label = "Location: ", max_length=255)
-    country = forms.CharField(label= "Country: ", max_length=255)
-    sector = forms.CharField(label="Sector: ", max_length=255)
-    projects = forms.CharField(label="Current Project(s): ", widget=forms.Textarea)
-    private = forms.BooleanField(label="Private: ", required=False)
-    files = MultiFileField(min_num=1, max_num=15, max_file_size=1024*1024*5)
+from groups.models import Group
+from .models import Report, File, ReportPermissions
 
-TITLE = 1
-COMPNAME = 2
-LOCATION = 3
-SECTOR = 4
-CEO= 5
+#Forms
+class ReportForm(ModelForm):
+    class Meta:
+        model = Report
+        fields = ('title', 'compName','ceo', 'phoneNum','location','sector', 'projects', 'private','email')
+        exclude = ('AES_key','time_created', 'owner', 'files')
 
-SEARCH_CHOICES = (
-    (TITLE, 'Report Title'),
-    (COMPNAME, 'Company Name'),
-    (LOCATION, 'Location'),
-    (SECTOR, 'Sector'),
-    (CEO, "CEO"),
-    )
+class ReportPermissionsForm(ModelForm):
+    class Meta:
+        model = ReportPermissions
+        fields = ('allowed_users','allowed_groups')
 
-#Was trying to do some search forms, ignore or alter
-class single_search_query(forms.Form):
-    search_input = forms.CharField(label="Enter a search string ")
-    category = forms.ChoiceField(label ="Search Category", choices = SEARCH_CHOICES)
+    def __init__ (self, *args, **kwargs):
+        super(ReportPermissionsForm, self).__init__(*args, **kwargs)
+        self.fields["allowed_users"].widget = CheckboxSelectMultiple()
+        self.fields["allowed_users"].help_text = ""
+        self.fields["allowed_users"].queryset = User.objects.all()
+        self.fields["allowed_groups"].widget = CheckboxSelectMultiple()
+        self.fields["allowed_groups"].help_text = ""
+        self.fields["allowed_groups"].queryset = Group.objects.all()
+
+
+class FileForm(ModelForm):
+    class Meta:
+        model = File
+        fields = ('title', 'is_encrypted', 'upload')
