@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
-
+import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
@@ -92,15 +92,19 @@ WSGI_APPLICATION = 'lokahi_dropbox.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+# Heroku saves the day?
+POSTGRES_URL = "HEROKU_POSTGRESQL_PURPLE_URL"
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lokahi_dropbox',
-        'USER': 'ilscfhbnblgylf',
-        'PASSWORD': 'b794a252ec1a81e2f72f19f46e5ff68c62bf318b3f9759aeb9735a94456f149e',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(default=os.environ[POSTGRES_URL])
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'lokahi_dropbox',
+    #     'USER': 'ilscfhbnblgylf',
+    #     'PASSWORD': 'b794a252ec1a81e2f72f19f46e5ff68c62bf318b3f9759aeb9735a94456f149e',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '5432',
+    # }
 }
 
 
