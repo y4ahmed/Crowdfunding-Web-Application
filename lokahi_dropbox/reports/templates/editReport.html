@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if report.is_private %}
+        <script>
+            $(document).ready(function() {
+                $("input[id='id_is_private']").addClass("checked");
+            });
+        </script>
+    {% else %}
+        <script>
+            $(document).ready(function() {
+                $("label[for='id_allowed_users_0']").parent().hide();
+                $("label[for='id_allowed_groups_0']").parent().hide();
+            });
+        </script>
+    {% endif %}
+
+    <script type="text/html" id="file-template">
+    <div id="file-__prefix__" style="margin-top:15px;margin-bottom:15px;">
+        {{ file_formset.empty_form }}
+    </div>
+    </script>
+    <script>
+    $(document).ready(function() {
+        $("input[id='id_is_private']").unbind().click(function(){
+        if($(this).hasClass("checked")){
+            $(this).removeClass("checked");
+            $("label[for='id_allowed_users_0']").parent().hide();
+            $("label[for='id_allowed_groups_0']").parent().hide();
+        }else{
+            $(this).addClass("checked");
+            $("label[for='id_allowed_users_0']").parent().show();
+            $("label[for='id_allowed_groups_0']").parent().show();
+        }
+        });
+        $('.add-item').click(function(ev) {
+            ev.preventDefault();
+            var count = $('#file-form-container').children().length;
+            var tmplMarkup = $('#file-template').html();
+            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+            $('div#file-form-container').append(compiledTmpl);
+            // update form count
+            $('#id_file_set-TOTAL_FORMS').attr('value', count+1);
+            $("label[for='id_file_set-"+count+"-upload']").hide();
+        });
+    });
+    </script>
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        <div>
+            {% bootstrap_form report_form %}
+            {% bootstrap_form permissions_form %}
+            {{ file_formset.management_form }}
+
+            <label>Add Files <span><button style= "background-color: green;" type="submit" class="add-item glyphicon glyphicon-plus"></button></span></label>
+
+            <div id="file-form-container">
+                {% for form in file_formset %}
+                    <div id="file-{{ forloop.counter0 }}" style="margin-top:15px;margin-bottom:15px;">
+                        {% bootstrap_form form %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% buttons %}
+        <button style= "background-color: green;" type="submit" class="btn btn-primary">
+            Save
+        </button>
+        {% endbuttons %}
+    </form>
+{% endblock %}
