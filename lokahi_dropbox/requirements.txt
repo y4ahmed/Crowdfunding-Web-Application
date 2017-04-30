@@ -1,4 +1,4 @@
-alabaster==0.7.9
+alabaster==0.7ear9
 anaconda-client==1.6.0
 anaconda-navigator==1.4.3
 appnope==0.1.0
@@ -33,6 +33,7 @@ datashape==0.5.4
 decorator==4.0.11
 dill==0.2.5
 dj-database-url==0.4.2
+django-bootstrap-form==3.2.1
 Django==1.8
 django-bootstrap-form==3.2.1
 docutils==0.13.1
@@ -134,6 +135,7 @@ SQLAlchemy==1.1.5
 statsmodels==0.6.1
 sympy==1.0
 tables==3.3.0
+<<<<<<< HEAD
 terminado==0.6
 toolz==0.8.2
 tornado==4.4.2
@@ -148,3 +150,4 @@ xlrd==1.0.0
 XlsxWriter==0.9.6
 xlwings==0.10.2
 xlwt==1.2.0
+whitenoise==3.3.0
