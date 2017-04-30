@@ -21,7 +21,7 @@ def register(request):
 
             user = User.objects.create_user(
                 username=form.cleaned_data['username'],
-                password=form.cleaned_data['password1'],
+                password=form.cleaned_data['pass1'],
                 email=form.cleaned_data['email']
             )
             base = BaseUser.objects.create(
