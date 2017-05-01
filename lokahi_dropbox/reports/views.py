@@ -1,6 +1,6 @@
+import os
 #from django.shortcuts import render
 import datetime
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
@@ -41,11 +41,7 @@ def createReport(request):
 
             if report_form.is_valid() and permissions_form.is_valid() and file_formset.is_valid():
                 report = report_form.save(commit=False)
-                report.owner = request.user
-                #report.company_name = getattr(company_user,'company_name')
-                #report.company_phone = getattr(company_user,'company_phone')
-                #report.company_location = getattr(company_user,'company_location')
-                #report.company_country = getattr(company_user,'company_country')
+                report.owner = company_user
                 report.has_attachments = False
                 report.save()
 
@@ -65,10 +61,10 @@ def createReport(request):
                 else:
                     report.has_attachments = False;
 
-                report.save()
+                report.save(force_update=True)
 
                 messages.success(request, "Report created")
-                return redirect('viewReport')
+                return viewReport(request,report.pk)
         else:
             report_form = ReportForm(prefix="report_form")
             permissions_form = ReportPermissionsForm(prefix="permissions_form")
@@ -76,7 +72,7 @@ def createReport(request):
         return render(request, 'createReport.html',{'report_form': report_form, 'permissions_form': permissions_form, 'file_formset': file_formset, 'username': username})
 
     else:
-        return redirect('viewReport', {'has_messages': has_messages, 'username': username})
+        return redirect('view_Report', {'has_messages': has_messages, 'username': username})
 
 
 @login_required
