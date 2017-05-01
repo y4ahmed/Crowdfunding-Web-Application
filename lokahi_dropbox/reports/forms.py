@@ -6,19 +6,21 @@ from django.forms.widgets import CheckboxSelectMultiple
 from groups.models import Group
 from .models import Report, File, ReportPermissions
 
-#Forms
+
 class ReportForm(ModelForm):
     class Meta:
         model = Report
-        fields = ('title', 'compName','ceo', 'phoneNum','location','sector', 'projects', 'private','email')
-        exclude = ('AES_key','time_created', 'owner', 'files')
+        fields = ('title', 'compName', 'ceo', 'phoneNum', 'location',
+                  'sector', 'projects', 'private', 'email')
+        exclude = ('AES_key', 'time_created', 'owner', 'files')
+
 
 class ReportPermissionsForm(ModelForm):
     class Meta:
         model = ReportPermissions
-        fields = ('allowed_users','allowed_groups')
+        fields = ('allowed_users', 'allowed_groups')
 
-    def __init__ (self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(ReportPermissionsForm, self).__init__(*args, **kwargs)
         self.fields["allowed_users"].widget = CheckboxSelectMultiple()
         self.fields["allowed_users"].help_text = ""
