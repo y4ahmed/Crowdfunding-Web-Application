@@ -4,7 +4,7 @@ from groups.models import Group
 
 # Create your models here.
 class Report(models.Model):
-    author = models.OneToOneField(User)
+    owner  = models.OneToOneField(User)
     title = models.CharField(max_length=255)
     compName = models.CharField(max_length=255)
     ceo = models.CharField(max_length=255)

@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 # from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from search.views import *
-from reports.views import *
+#from reports.views import *
 
 # Regular website patterns
 urlpatterns = [
@@ -16,8 +16,9 @@ urlpatterns = [
     url(r'^groups/', include('groups.urls'), name='groups'),
     url(r'^wall/', include('wall_post.urls'), name='wall'),
     url(r'^manage_site/', include('site_manager.urls'), name='manage_site'),
-    url(r'^createReport/', createReport),
-    url(r'^viewReport/',viewReport),
+    url(r'^reports/', include ('reports.urls'), name = 'reports'),
+    #url(r'^createReport/', createReport),
+    #url(r'^viewReport/', viewReport),
     # Search views
     url(r'^home/search/$', basic_search),
 ]

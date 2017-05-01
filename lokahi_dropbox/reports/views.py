@@ -92,7 +92,6 @@ def viewReport(request, pk):
     #        break
     report = get_object_or_404(Report, pk=pk)
     is_owner = (report.owner.pk == request.user.pk)
-
     if not report.private or is_owner or can_view_report(request.user, report):
         unencrypted_files = File.objects.filter(report__pk=report.pk, is_encrypted=False)
         has_encrypted_files = True if File.objects.filter(report__pk=report.pk, is_encrypted=True) else False
@@ -150,3 +149,11 @@ def editReport(request, pk):
                   {'report_form': report_form, 'permissions_form': permissions_form, 'report': report,
                    'file_formset': file_formset, 'has_messages': has_messages, 'username': username})
 
+@login_required
+def deleteReport(request, pk):
+    report = get_object_or_404(Report, pk=pk)
+
+    if is_site_manager(request.user) or report.owner.pk == request.user.pk:
+        report.delete()
+
+    return redirect('index')
