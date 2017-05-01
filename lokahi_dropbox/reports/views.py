@@ -118,7 +118,7 @@ def view_report(request, pk):
         # checks if user is in report group or is a collaborator
         return render(
             request,
-            'viewReport.html',
+            'view_report.html',
             {
                 'report': report, 'is_owner': is_owner,
                 'unencrypted_files': unencrypted_files,
@@ -179,7 +179,7 @@ def edit_report(request, pk):
 
     return render(
         request,
-        'reports/editReport.html',
+        'reports/edit_report.html',
         {
             'report_form': report_form, 'permissions_form': permissions_form,
             'report': report, 'file_formset': file_formset,
