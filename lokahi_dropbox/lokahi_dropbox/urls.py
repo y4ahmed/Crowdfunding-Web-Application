@@ -1,14 +1,18 @@
 from django.conf.urls import include, url
 # from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from search.views import *
-#from reports.views import *
+from django.contrib.auth.views import login
+# from django.contrib.auth.decorators import user_passes_test
+from search.views import basic_search
+
+
+# login_forbidden = user_passes_test(lambda u: u.is_anonymous(), '/')
 
 # Regular website patterns
 urlpatterns = [
-    url(r'^$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^$', login, name='login'),
     # If user is not login it will redirect to login page
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+    url(r'^accounts/login/$', login, name='login'),
     # url(r'^admin/', include(admin.site.urls)),
 
     # App urls
