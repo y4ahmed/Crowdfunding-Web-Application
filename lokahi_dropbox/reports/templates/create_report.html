@@ -36,7 +36,7 @@
 
     });
     </script>
-    <form method="post" enctype="multipart/form-data" class="form" action="/reports/create_Report/">
+    <form method="post" enctype="multipart/form-data" class="form" action="/reports/create_report/">
         {% csrf_token %}
         <div>
             {% bootstrap_form report_form %}

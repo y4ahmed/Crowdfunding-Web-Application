@@ -3,12 +3,12 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^view_Report/$', views.viewReport, name='view_Report'),
-    #view Reports
-    url(r'^create_Report/$', views.createReport, name='create_Report'),
-    #createReports
-    url(r'^edit_Reports/$', views.editReport, name='edit_Report'),
-    #editReports
-    url(r'^delete_Reports/$', views.deleteReport, name='delete_Report'),
-    #deleteReports
+    # view Reports
+    url(r'^view_report/$', views.view_report, name='view_report'),
+    # createReports
+    url(r'^create_report/$', views.create_report, name='create_report'),
+    # editReports
+    url(r'^edit_reports/$', views.edit_report, name='edit_report'),
+    # deleteReports
+    url(r'^delete_reports/$', views.delete_report, name='delete_report'),
 ]
