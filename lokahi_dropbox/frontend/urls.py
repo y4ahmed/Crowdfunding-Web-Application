@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from . import views
-#from reports.views import *
+
 
 urlpatterns = [
     url(r'^home/$', views.home, name='home'),
@@ -13,6 +13,4 @@ urlpatterns = [
     # Temporarily handle broken links
     url(r'^upload/$', views.upload_file, name='upload_file'),
     url(r'^upload_success/$', views.upload_success, name='upload_succes'),
-    #url(r'^createReport/$', createReport),
-    #url(r'^viewReports/$', viewReport),
 ]
