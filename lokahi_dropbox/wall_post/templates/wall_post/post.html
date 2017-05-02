@@ -8,18 +8,19 @@
 </head>
 <body>
     {% block head %}Make a post!{% endblock %}
-    {% block content %}
-    <div class="center-div2">
+    {% block content %}{% load bootstrap %}
+    <div class="jumbotron text-center">
         <form method="POST" action="/wall/make_post/">{% csrf_token %}
             Anonymous: <input type="checkbox" name="anonymous" value="Anonymous" />
+            <br />
             <br />
             <input type="text" name="message" />
             <input type="submit" name="post" value="Post" />
         </form>
         <br />
     </div>
-    <h3><a href="/wall/">Wall</a></h3>
-    <h3><a href="/home/">Home</a></h3>
+    <h3><a class = "btn btn-default" href="/wall/">Wall</a></h3>
+    <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
     {% endblock %}
 </body>
 </html>
