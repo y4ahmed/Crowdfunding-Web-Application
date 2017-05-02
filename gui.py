@@ -1,20 +1,13 @@
 import tkinter
 from tkinter import ttk
-import requests
-from django.contrib.auth import logout as dj_logout
+from tkinter import *
 import psycopg2
-from Crypto.Hash import SHA256
-from django.contrib.auth.password_validation import *
-import sys
-#from lokahi_dropbox.frontend.models import BaseUser
-#import django.contrib.auth.views as logger
-#from django.contrib.auth.models import User
-from django.contrib.auth.hashers import check_password
+
 
 import os
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'lokahi_dropbox.lokahi_dropbox.settings'
-
+from django.contrib.auth.hashers import check_password
 
 
 
@@ -30,45 +23,92 @@ class Lokahi(ttk.Frame):
         #dj_logout()
         quit()
 
+    def show_table(self, table):
+        table['height'] = 10
+        table['show'] = 'tree headings'
+
+    def hide_table(self, table):
+        table['show'] = []
+        table['height'] = 0
+
+    def view_reports(self):
+        try:
+            conn = psycopg2.connect("dbname='lokahi_dropbox' user='admin' host='localhost' password='password'")
+        except:
+            print("Database failure")
+        cur = conn.cursor()
+        row = []
+        try:
+            cur.execute("""SELECT * from reports_report WHERE owner_id = %(un)s """, {'un': self.root.user_id})
+            row = cur.fetchall()
+        except:
+            print("Failed to view reports")
+        if row.__len__() > 0:
+            self.view_reports_table.delete(*self.view_reports_table.get_children())
+            self.show_table(self.view_reports_table)
+            self.view_reports_table['columns'] = ('Report Title')
+            for item in row:
+                e = tkinter.Button(self, text=item[1])
+                self.view_reports_table.insert('', 'end', e, text=e['text'])
+            self.view_reports_table.bind("<Button-1>", self.onclick)
+        else:
+            self.answer_label['text'] = "You have no reports submitted"
+
+    def onclick(self, event):
+        item = self.view_reports_table.identify('item', event.x, event.y)
+        report = self.view_reports_table.item(item, "text")
+        try:
+            conn = psycopg2.connect("dbname='lokahi_dropbox' user='admin' host='localhost' password='password'")
+        except:
+            print("Database failure")
+        cur = conn.cursor()
+        row = []
+        try:
+            cur.execute("""SELECT * from reports_report WHERE title = %(un)s """, {'un': report})
+            row = cur.fetchall()
+            self.hide_table(self.view_reports_table)
+            self.show_table(self.show_report)
+
+        except:
+            print("Failed to view reports")
+
+
+
     def login(self):
 
         username = self.username.get()
         password = self.password.get()
 
-        URL = "http://localhost:8000/"
-
-        client = requests.session()
-
-        # Retrieve the CSRF token first
-        client.get(URL)  # sets cookie
-        csrftoken = client.cookies['csrftoken']
-        r = client.post(URL, data={'username': username, 'password': password , 'csrfmiddlewaretoken': csrftoken, "next": "home/"})
-        #print(r.content.decode())
         encoded = ""
         try:
             conn = psycopg2.connect("dbname='lokahi_dropbox' user='admin' host='localhost' password='password'")
-            cur = conn.cursor()
+        except:
+            print("Database failure")
+        cur = conn.cursor()
+
+        try:
             cur.execute("""SELECT * from auth_user WHERE username = %(un)s""", {'un': username})
             rows = cur.fetchall()
             encoded = rows[0][1]
-            if check_password(password, encoded):
-                print("Do stuff here!")
-            else:
-                print("Password does not match")
-
+            person_id = rows[0][0]
+            self.root.user_id = person_id
         except:
-            print("Database failure")
+            print("Could not execute SELECT Query for table 'auth_user'")
+
+        if check_password(password, encoded):
+            self.view_reports_button['state'] = 'enabled'
+
+        else:
+            self.answer_label['text'] = "The username and password did not match."
 
 
-        #buser = BaseUser.objects.get(user=User())
-        #logger.login
-        self.answer_label['text'] = username + " " + password
 
 
     def init_gui(self):
         """Builds GUI."""
         self.root.title('Lokahi')
         self.root.option_add('*tearOff', 'FALSE')
+        self.root.user_id = ""
 
         self.grid(column=0, row=0, sticky='nsew')
 
@@ -84,6 +124,8 @@ class Lokahi(ttk.Frame):
 
         self.root.config(menu=self.menubar)
 
+
+
         self.username = ttk.Entry(self, width=15)
         self.username.grid(column=1, row=2)
 
@@ -94,12 +136,21 @@ class Lokahi(ttk.Frame):
                                       command=self.login)
         self.login_button.grid(column=0, row=4, columnspan=4)
 
-        self.answer_frame = ttk.LabelFrame(self, text='Answer',
+        self.answer_frame = ttk.LabelFrame(self, text='',
                                            height=100)
         self.answer_frame.grid(column=0, row=5, columnspan=4, sticky='nesw')
 
         self.answer_label = ttk.Label(self.answer_frame, text='')
         self.answer_label.grid(column=0, row=5)
+
+
+        self.view_reports_button = ttk.Button(self, text='View Reports', command=self.view_reports, state=DISABLED)
+        self.view_reports_button.grid(column = 0, row=5, columnspan=4)
+        self.view_reports_table = ttk.Treeview(self, selectmode='browse',show=[], height=0)
+        self.view_reports_table.grid(column=0, row=6, columnspan=4)
+        self.show_report = ttk.Treeview(self, selectmode='browse', show=[], height=0)
+        self.show_report.grid(column=0, row=7, columnspan=4)
+
 
         # Labels that remain constant throughout execution.
         ttk.Label(self, text='Login').grid(column=0, row=0,
@@ -111,7 +162,6 @@ class Lokahi(ttk.Frame):
 
         ttk.Separator(self, orient='horizontal').grid(column=0,
                                                       row=1, columnspan=4, sticky='ew')
-
         for child in self.winfo_children():
             child.grid_configure(padx=50, pady=10)
 
