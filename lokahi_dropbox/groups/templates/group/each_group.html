@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base4.html" %}
 
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    {% block head %}Group{% endblock %}
+    {% block head %}<font color="black" size="6">Groups</font>{% endblock %}
     {% block content %}
     <div class = "jumbotron text-center">
       <div class="container"  style = "width:60%">
@@ -17,13 +17,6 @@
         <i><font size="5">{{ member.user.username }}</font></i>
           <br />
         {% endfor %}
-          <br />  <br />
-        <p class = "lead"><font size="5">All reports:</font></p>
-        {% for report in reports %}
-        <i><font size="5">{{ report.title }}</font></i>
-          <br />
-        {% endfor %}
-        <br />
         <br />
         <p class = "lead">Add Group Members</p>
         <form method="POST" action="/groups/add_members/">{% csrf_token %}
@@ -31,6 +24,15 @@
             <input type="hidden" name="group_id" value={{group_id}} /><br />
             <input class = "btn btn-default" type="submit" value="add" /><br />
         </form>
+        <br />
+        <p class = "lead"><font size="5">All reports:</font></p>
+        {% for report in reports %}
+        <i><font size="5">{{ report.title }}</font></i>
+          <br />
+        {% endfor %}
+        <br />
+        <br />
+
         <br />
         {% if is_duplicate == True %}
           <b><font size="3" color="red">User {{ duplicate_name }} is already a member </font></b>
@@ -47,8 +49,6 @@
         <br />
       </div>
     </div>
-    <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
-    <h3><a class = "btn btn-default" href="/groups/">Groups Main Page</a></h3>
     {% endblock %}
 </body>
 </html>

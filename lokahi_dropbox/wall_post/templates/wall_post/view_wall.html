@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base4.html" %}
 
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    {% block head %}THE WALL{% endblock %}
+    {% block head %}<font color="black" size="6">Wall activity</font>{% endblock %}
     {% block content %}{% load bootstrap %}
     <div class = "jumbotron text-center">
         <ul>
@@ -19,8 +19,6 @@
         </ul>
         <br />
     </div>
-    <h3><a class = "btn btn-default" href="/wall/">Wall</a></h3>
-    <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
     {% endblock %}
 </body>
 </html>

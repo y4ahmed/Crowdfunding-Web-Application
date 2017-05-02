@@ -11,22 +11,10 @@
 </head>
 <body>
     {% block title %}Lokahi Home{% endblock %}
-    {% block head %}Welcome to Lokahi, {{ user.user.username }}{% endblock %}
+    {% block head %}{% endblock %}
     {% block content %}
     <div class="jumbotron text-center">
-        <div class="container"  style = "width:75%">
-            <div class="btn-group">
-                {% if type == "Company User" %}
-                    <a class="btn btn-default" href="/reports/create_report/">Create a Report</a>
-                {% endif %}
-                {% if type == "Site Manager" %}
-                    <a class="btn btn-default" href="/manage_site/">Manage Site</a>
-                {% endif %}
-                <a class="btn btn-default" href="/reports/list_report/">View reports</a>
-                <a class="btn btn-default" href="/messaging/">Messaging</a>
-                <a class="btn btn-default" href="/groups/">Groups</a>
-                <a class="btn btn-default" href="/wall/">Wall Management</a>
-            </div>
+        <div class="container"  style = "width:80%">
             <form method="POST" action="search/">
                 {% csrf_token %}
                 <input type="text" name="search" id="id_search"
@@ -45,17 +33,16 @@
             <a class="btn btn-default" href="advanced_search/">Advanced search?</a>
             <br />
             <br />
-            <h1>Lokahi Fintech</h1>
-            <h3>What We Do</h3>
-            <p align="left">Lokahi Fintech Crowdfunding (LFC) brings together small investors and small firms needing venture capital which would otherwise be excluded from this financial market. Companies seeking venture capital need a means to disseminate information
+            <h1><font size="6" color="white"><b>Our Vision<b><font></h1>
+            <p align="left"><font size="4" color="white">Lokahi Fintech Crowdfunding (LFC) brings together small investors and small firms needing venture capital which would otherwise be excluded from this financial market. Companies seeking venture capital need a means to disseminate information
                 about their company and its potential growth and profit in a safe and secure environment. Potential investors need a means to collect, share, and distribute information about the potential investments in a similar environment. The goal
-                of this website is to develop a secure system in which companies and investors can work together to share feedback and avoid asymmetric information and moral hazards.</p>
+                of this website is to develop a secure system in which companies and investors can work together to share feedback and avoid asymmetric information and moral hazards.</font></p>
 
             <!---<h2><p>Welcome {{ user.user.username }}!!!</p></h2>
              <h2><p>You are a {{ user.user_role }}!</p></h2> -->
         </div>
     </div>
-    <h3><a class = "btn btn-default" href="/logout/">Logout</a></h3>
     {% endblock %}
+    </style>
 </body>
 </html>

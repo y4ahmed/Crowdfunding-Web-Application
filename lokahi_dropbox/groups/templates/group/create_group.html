@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    {% block head %}Create a group{% endblock %}
+    {% block head %}<font size="6" color="black">Ceate a group</font>{% endblock %}
     {% block content %}
     <div class = "jumbotron text-center">
       <div class="container"  style = "width:60%">
@@ -16,9 +16,9 @@
             <input class = "form-control" type="text" name="group_name"><br />
             Group members (comma seperated names):<br />
             <input class = "form-control" type="text" name="member_list"><br />
-            Reports accessible (comma seperated names):<br />
+            Reports accessible (comma seperated titles):<br />
             <input class = "form-control" type="text" name="report_list"><br />
-            <input class = "btn btn default" type="submit" name="send">
+            <input class = "submit" type="submit" name="send">
         </form>
 
         {% if invalid_entry == True %}
@@ -42,9 +42,12 @@
         {% endif %}
 
       </div>
+      <style>
+      .jumbotron {
+        background-color: rgba(238, 238, 238, 0.65);
+      }
+      </style>
     </div>
-    <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
-    <h3><a class = "btn btn-default" href="/groups/">Groups Main Page</a></h3>
     {% endblock %}
 </body>
 </html>

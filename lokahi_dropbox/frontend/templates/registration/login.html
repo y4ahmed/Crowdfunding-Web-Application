@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base3.html" %}
 
 <html lang="en">
 <head>
@@ -7,7 +7,6 @@
 </head>
 <body>
     {% block title %}Login{% endblock %}
-    {% block head %}Login{% endblock %}
     {% block content %}{% load bootstrap %}
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
@@ -16,12 +15,15 @@
         <div class="container"  style = "width:60%">
         <form method="post" action="." class="form-group">{% csrf_token %}
             {{ form.username|bootstrap }}
-            {{ form.password|bootstrap }}
-            <input style = "width:30%" type="submit" class = "login" value="Login" />
+            {{ form.password|bootstrap }} <br />
+            <input style = "width:30%" type="submit" class = "btn btn-default" value="Login" />
             <input type="hidden" name="next" value="/home" />
         </form>
+        <br />
+        <br />
         <a class = "btn btn-default" href="/register/">Don't have an account? Register</a>
       </div>
+
     </div>
     {% endblock %}
 </body>

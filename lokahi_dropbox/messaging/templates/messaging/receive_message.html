@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base4.html" %}
 
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    {% block head %}My Messages{% endblock %}
+    {% block head %}<font color="black" size="6">Messages</font>{% endblock %}
     {% block content %}{% load bootstrap %}
     <div class = "jumbotron text-left">
         <div class="container"  style = "width:60%">
@@ -31,7 +31,7 @@
                     <input class = "btn btn-default" type="submit" value="Delete" />
                 </form>
                 <form method="POST" action="/messaging/decrypt_message/">{% csrf_token %}
-                    <input type="hidden" name="message" value={{message.id}} />
+                    <input type="hidden" name="message" value="{{message.id}}" />
                     <input class = "btn btn-default" type="submit" value="Decrypt" />
                 </form>
                 <br />
@@ -42,8 +42,6 @@
       </div>
     </div>
     <div class = "text-center">
-      <a class = "btn btn-default" href="/messaging/send_message/">Send Message</a>
-      <a class = "btn btn-default" href="/home/">Home</a>
     </div>
     {% endblock %}
 </body>

@@ -10,24 +10,17 @@
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <title>Django Login Application | {% block title %}{% endblock %}</title>
     <body style="background-size:cover" background=https://static.pexels.com/photos/2324/skyline-buildings-new-york-skyscrapers.jpg></body>
-    <style>
-    .jumbotron {
-      background-size: contain;
-      background-color: rgba(238, 238, 238, 0.25);
-    }
-    </style>
-    <h1><font align="center" size="6" color="black"><b>LOKAHI FINTECH <br /> <hr align="center" size="10" nonshade width="50%" color="black"> {{user.user.username }}</b></font></h1>
+    <h1><font align="center" size="8" color="black"><b>LOKAHI FINTECH<br /> <hr align="center" size="10" nonshade width="50%" color="black"> {{user.user.username }}</b></font></h1>
 </head>
 <body>
   <div class="jumbotron text-center">
     <div class="container" >{% include "navbar.html"%}</div>
     <style>
     .jumbotron {
-      background-color: rgba(238, 238, 238, 0);
+      background-color: rgba(238, 238, 238, 0.65);
     }
     </style>
   </div>
-
     <h1>{% block head %}{% endblock %}</h1>
     {% block content %}{% endblock %}
 </body>

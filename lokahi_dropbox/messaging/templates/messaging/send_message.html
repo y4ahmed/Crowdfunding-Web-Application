@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    {% block head %}Send a Message{% endblock %}
+    {% block head %}<font size="6" color="black">Send a message</font>{% endblock %}
     {% block content %}{% load bootstrap %}
     <div class = "jumbotron text-center">
       <div class="container"  style = "width:60%">
@@ -15,14 +15,10 @@
             <table border="0">
             {{ form|bootstrap }}
             </table>
-            <input type="submit" class = "login" value="Send Message" />
+            <input type="submit" class = "submit" value="Send Message" />
         </form>
         <br />
         </div>
-    </div>
-    <div class = "text-center">
-      <a class = "btn btn-default" href="/messaging/receive_message/">Receive Message</a>
-      <a class = "btn btn-default" href="/home/">Home</a>
     </div>
     {% endblock %}
 </body>
