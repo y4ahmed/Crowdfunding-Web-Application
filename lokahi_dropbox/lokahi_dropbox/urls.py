@@ -4,7 +4,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth.views import login
 # from django.contrib.auth.decorators import user_passes_test
 from search.views import *
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 # login_forbidden = user_passes_test(lambda u: u.is_anonymous(), '/')
 
@@ -27,7 +28,8 @@ urlpatterns = [
     # Search views
     url(r'^home/search/$', basic_search),
     url(r'^home/advanced_search/$', advanced_search),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Serve static files
 urlpatterns += staticfiles_urlpatterns()
+#urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA.ROOT)
