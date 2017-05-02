@@ -2,12 +2,23 @@ import tkinter
 from tkinter import ttk
 from tkinter import *
 import psycopg2
+import urllib.request
 
 
 import os
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'lokahi_dropbox.lokahi_dropbox.settings'
 from django.contrib.auth.hashers import check_password
+
+"""
+# Heroku DB stuff
+ username: ilscfhbnblgylf
+ password: b794a252ec1a81e2f72f19f46e5ff68c62bf318b3f9759aeb9735a94456f149e
+ host name: ec2 - 54 - 235 - 168 - 152.compute - 1.amazonaws.com
+ port: 5432
+ db name: d1gd223316gqqm
+ """
+
 
 
 
@@ -20,7 +31,6 @@ class Lokahi(ttk.Frame):
 
     def on_quit(self):
         """Exits program."""
-        #dj_logout()
         quit()
 
     def show_table(self, table):
@@ -44,6 +54,7 @@ class Lokahi(ttk.Frame):
         table.insert("", 10, "projects", text="Projects:", values=(row[9]))
         table.insert("", 11, "files", text="Files:", values=(row[11]))
         table.insert("", 12, "timestamp", text="Time Created:", values=(row[12]))
+
 
 
     def view_reports(self):
@@ -87,6 +98,29 @@ class Lokahi(ttk.Frame):
         self.show_table(self.show_report)
         self.setup_report_table(self.show_report, row[0])
 
+        id = row[0][0]
+        try:
+            cur.execute("""SELECT * from reports_file WHERE report_id=%(un)s""", {'un': id})
+            row = cur.fetchall()
+            if row.__len__() > 0:
+                self.download_file_button['state'] = 'enabled'
+        except:
+            print("No reports for you")
+            return
+
+        path = row[0][4]
+        self.root.files.append(path)
+        url = "http://localhost:8000/reportFiles/" + path
+        urllib.request.urlretrieve(url, "testdl5.txt")
+
+
+    def download_file(self):
+        url = "http://localhost:8000/reportFiles/"
+        for path in self.root.files:
+            index = path.index('/')
+            filename = path[index+1:]
+            filename = "/Users/danielbrown/Desktop/" + filename
+            urllib.request.urlretrieve(url + path, filename)
 
 
 
@@ -125,6 +159,7 @@ class Lokahi(ttk.Frame):
         self.root.title('Lokahi')
         self.root.option_add('*tearOff', 'FALSE')
         self.root.user_id = ""
+        self.root.files = []
 
         self.grid(column=0, row=0, sticky='nsew')
 
@@ -167,6 +202,8 @@ class Lokahi(ttk.Frame):
         self.show_report = ttk.Treeview(self, selectmode='browse', show=[], height=0, columns=('placeholder'))
         self.show_report.grid(column=0, row=7, columnspan=4)
 
+        self.download_file_button = ttk.Button(self, text='Download File(s)', command=self.download_file, state=DISABLED)
+        self.download_file_button.grid(column=5, row=7)
 
         # Labels that remain constant throughout execution.
         ttk.Label(self, text='Login').grid(column=0, row=0,
