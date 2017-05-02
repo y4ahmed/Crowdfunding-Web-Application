@@ -10,10 +10,18 @@
     {% block head %}Group{% endblock %}
     {% block content %}
     <div class = "jumbotron text-center">
-        <h3 class = "lead"> Group name: {{ group_name }}</h3>
-        <p class = "lead"> Members:</p>
+      <div class="container"  style = "width:60%">
+        <h3 class = "lead"><b><font size="7">{{ group_name }}</font></b></h3>
+        <p class = "lead"><font size="5">All members:</font></p>
         {% for member in members %}
-            <li>{{ member.user.username }}</li>
+        <i><font size="5">{{ member.user.username }}</font></i>
+          <br />
+        {% endfor %}
+          <br />  <br />
+        <p class = "lead"><font size="5">All reports:</font></p>
+        {% for report in reports %}
+        <i><font size="5">{{ report.title }}</font></i>
+          <br />
         {% endfor %}
         <br />
         <br />
@@ -37,6 +45,7 @@
             <input class = "btn btn-default" type="submit" value="Leave Group" /><br />
         </form>
         <br />
+      </div>
     </div>
     <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
     <h3><a class = "btn btn-default" href="/groups/">Groups Main Page</a></h3>

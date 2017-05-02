@@ -11,7 +11,7 @@ from frontend.models import BaseUser
 class Group(models.Model):
     group_name = models.CharField(max_length=30,)
     member_list = models.ManyToManyField(BaseUser)
-    report_list = []
+    report_list = models.ManyToManyField('reports.Report')
 
     def add_members(self, mem_list):
         for mem in mem_list:

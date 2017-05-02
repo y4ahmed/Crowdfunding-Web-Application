@@ -20,7 +20,10 @@ def basic_search(request):
             # TEST TODO remove
             for report in reports:
                 print(report.title)
-            return render(request, 'searches/advanced_search.html', {'form': AdvancedSearchForm()})
+            base = BaseUser.objects.get(user=request.user)
+            return render(request, 'home.html', {'form': BasicSearchForm(), 'user': base, 'type': base.user_role})
+    base = BaseUser.objects.get(user=request.user)
+    return render(request, 'home.html', {'form': BasicSearchForm(), 'user': base, 'type': base.user_role, 'invalid_search':True})
 
 @csrf_protect
 def advanced_search(request):
@@ -98,12 +101,11 @@ def advanced_search(request):
 
 
             # print(len(final_reports))
-            #
-            # # TEST TODO remove
+            # TODO comment out the next part!
             for report in final_reports:
                 print(report.title)
 
-            return render(request, 'home.html',)
+            return HttpResponseRedirect('/home/')
         else:
             return render(request, 'searches/advanced_search.html', {'form': AdvancedSearchForm()})
     else:

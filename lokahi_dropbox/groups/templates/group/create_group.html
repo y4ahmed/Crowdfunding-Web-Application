@@ -10,6 +10,7 @@
     {% block head %}Create a group{% endblock %}
     {% block content %}
     <div class = "jumbotron text-center">
+      <div class="container"  style = "width:60%">
         <form method="post" action=".">{% csrf_token %}
             Group Name:<br />
             <input class = "form-control" type="text" name="group_name"><br />
@@ -19,14 +20,28 @@
             <input class = "form-control" type="text" name="report_list"><br />
             <input class = "btn btn default" type="submit" name="send">
         </form>
+
+        {% if invalid_entry == True %}
         <br />
-        {% if duplicate_name == True %}
-            <b><font size="3" color="red">A group with that name already exists, please select another one.</font></b>
+            <b><font size="3" color="red">Please fill up all the above fields</font></b>
         {% endif %}
+
+        {% if duplicate_name == True %}
         <br />
+            <b><font size="3" color="red">A group with that name already exists, please select another one</font></b>
+        {% endif %}
+
         {% if invalid_user == True %}
+          <br />
             <b><font size="3" color="red">No user called {{ invalid_name }} </font></b>
         {% endif %}
+
+        {% if invalid_report == True %}
+          <br />
+            <b><font size="3" color="red">Report {{ invalid_report_name }} does not exist</font></b>
+        {% endif %}
+
+      </div>
     </div>
     <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
     <h3><a class = "btn btn-default" href="/groups/">Groups Main Page</a></h3>

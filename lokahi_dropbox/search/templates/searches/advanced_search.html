@@ -7,8 +7,10 @@
     <meta charset="UTF-8">
 </head>
 <body>
+    {% block head %}Advanced search filters{% endblock %}
     {% block content %}{% load bootstrap %}
     <div class = "jumbotron text-center">
+      <div class="container"  style = "width:55%">
         {% if empty_field == True %}
             <b><font size="3" color="red">Please fill at least one search criterea</font></b>
         {% endif %}
@@ -19,11 +21,12 @@
             <table border="0">
             {{ form|bootstrap }}
             </table>
-            <p>Time input must be in HH:MM format </p>
-            <input type="submit" class = "btn btn-default" value="search" />
+            <p><font size="3">Time input must be in HH:MM format</font></p>
+            <br />
+            <br />
+            <input type="submit" class = "btn btn-default" value="Search" />
         </form>
-        <br />
-
+      </div>
     </div>
     <h3><a class = "btn btn-default" href="/logout/">Logout</a></h3>
     <h3><a class = "btn btn-default" href="/home/">Home</a></h3>

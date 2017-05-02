@@ -37,6 +37,11 @@
                 </span>
             </form>
             <br />
+            {% if invalid_search == True %}
+                <b><font size="3" color="red">Please enter a value in the search field!</font></b>
+            {% endif %}
+            <br />
+            <br />
             <a class="btn btn-default" href="advanced_search/">Advanced search?</a>
             <br />
             <br />
