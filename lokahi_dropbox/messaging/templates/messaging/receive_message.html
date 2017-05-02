@@ -15,10 +15,17 @@
                 <b><font size="3" color="red">Message is already decrypted</font></b>
             {% endif %}
             <br />
+            <br />
             {% for message in messages %}
                 <p class="lead">Subject: {{message.subject}}</p>
-                <p class="lead">Body: {{message.message}}</p>
+                {% if message.encrypt ==  True %}
+                  <p class="lead">Body: This message needs to be decrypted</p>
+                {% endif %}
+                {% if message.encrypt ==  False %}
+                  <p class="lead">Body: {{message.message}}</p>
+                {% endif %}
                 <p class="lead">Sender: {{message.sender}}</p>
+                <p class="lead">Received at: {{message.time_created}}</p>
                 <form method="POST" action="/messaging/delete_message/">{% csrf_token %}
                     <input type="hidden" name="message" value={{message.id}} />
                     <input class = "btn btn-default" type="submit" value="Delete" />

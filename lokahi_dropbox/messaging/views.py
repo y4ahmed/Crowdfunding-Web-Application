@@ -87,10 +87,9 @@ def decrypt_message(request):
                 message.save()
             else:
                 # throw error
-                messages = Message.objects.filter(
-                    receiver=request.user.username)
+                messages = Message.objects.filter(receiver=request.user.username).order_by('id')
                 return render(request, 'messaging/receive_message.html', {'messages': messages, 'is_decrypted': True})
 
-            messages = Message.objects.filter(receiver=request.user.username)
+            messages = Message.objects.filter(receiver=request.user.username).order_by('id')
 
     return render(request, 'messaging/receive_message.html', {'messages': messages, 'is_decrypted': False})
