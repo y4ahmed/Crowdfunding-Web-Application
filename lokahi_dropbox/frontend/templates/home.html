@@ -14,7 +14,7 @@
     {% block head %}Welcome to Lokahi, {{ user.user.username }}{% endblock %}
     {% block content %}
     <div class="jumbotron text-center">
-        <div class="container">
+        <div class="container"  style = "width:75%">
             <div class="btn-group">
                 {% if type == "Company User" %}
                     <a class="btn btn-default" href="/reports/create_report/">Create a Report</a>
@@ -37,12 +37,12 @@
                 </span>
             </form>
             <br />
-            <a class="btn btn-default" href="advanced_search/">Advanced search</a>
+            <a class="btn btn-default" href="advanced_search/">Advanced search?</a>
             <br />
             <br />
             <h1>Lokahi Fintech</h1>
             <h3>What We Do</h3>
-            <p>Lokahi Fintech Crowdfunding (LFC) brings together small investors and small firms needing venture capital which would otherwise be excluded from this financial market. Companies seeking venture capital need a means to disseminate information
+            <p align="left">Lokahi Fintech Crowdfunding (LFC) brings together small investors and small firms needing venture capital which would otherwise be excluded from this financial market. Companies seeking venture capital need a means to disseminate information
                 about their company and its potential growth and profit in a safe and secure environment. Potential investors need a means to collect, share, and distribute information about the potential investments in a similar environment. The goal
                 of this website is to develop a secure system in which companies and investors can work together to share feedback and avoid asymmetric information and moral hazards.</p>
 

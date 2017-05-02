@@ -60,6 +60,7 @@ def delete_message(request):
         form = DeleteForm(data=request.POST)
         if form.is_valid():
             index = form.cleaned_data['message']
+            print(index)
             m = Message.objects.get(id=index)
             m.delete()
             messages = Message.objects.filter(receiver=request.user.username)

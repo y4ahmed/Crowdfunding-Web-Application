@@ -13,19 +13,15 @@
         <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
     <div class = "jumbotron text-center">
+        <div class="container"  style = "width:60%">
         <form method="post" action="." class="form-group">{% csrf_token %}
-            <!--
-            <label for="id_username">Username:</label>
-            <input type = "text" class = "select">
-            <label for="id_password">Password:</label>
-            <input type = "text" class = "select">
-            -->
             {{ form.username|bootstrap }}
             {{ form.password|bootstrap }}
-            <input type="submit" class = "login" value="Login" />
+            <input style = "width:30%" type="submit" class = "login" value="Login" />
             <input type="hidden" name="next" value="/home" />
         </form>
         <a class = "btn btn-default" href="/register/">Don't have an account? Register</a>
+      </div>
     </div>
     {% endblock %}
 </body>

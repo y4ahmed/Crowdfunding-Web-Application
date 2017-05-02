@@ -10,6 +10,7 @@
     {% block head %}Send a Message{% endblock %}
     {% block content %}{% load bootstrap %}
     <div class = "jumbotron text-center">
+      <div class="container"  style = "width:60%">
         <form method = "POST" action ="." class = "form-group">{% csrf_token %}
             <table border="0">
             {{ form|bootstrap }}
@@ -17,9 +18,12 @@
             <input type="submit" class = "login" value="Send Message" />
         </form>
         <br />
+        </div>
     </div>
-    <a class = "btn btn-default" href="/messaging/receive_message/">Receive Message</a>
-    <a class = "btn btn-default" href="/home/">Home</a>
+    <div class = "text-center">
+      <a class = "btn btn-default" href="/messaging/receive_message/">Receive Message</a>
+      <a class = "btn btn-default" href="/home/">Home</a>
+    </div>
     {% endblock %}
 </body>
 </html>
