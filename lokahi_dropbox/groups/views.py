@@ -46,14 +46,29 @@ def create_group(request):
                 try:
                     user = User.objects.get(username__iexact=m)
                     base_user = BaseUser.objects.get(user=user)
+                    print("adding ", m)
                     base_user_list += [base_user]
                 except User.DoesNotExist:
                     return render(request, 'group/create_group.html', {'invalid_user': True, 'invalid_name': m}, )
                     # raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
 
+            users_private_reports = Report.objects.filter(owner_id=request.user, private=True)
+
+
+            if len(users_private_reports)==0:
+                return render(request, 'group/create_group.html', {'no_reports':True,})
+
+
             for r in report_list:
                 try:
-                    report_obj = Report.objects.get(title__iexact=r)
+                    # print(r)
+                    # pass in a list of report objects, and return the object with the matching name
+                    report_obj = find_report(users_private_reports, r)
+                    # print(report_obj)
+
+                    if report_obj==None:
+                        return render(request, 'group/create_group.html', {'invalid_private_report_name':True, 'invalid_report_private':r})
+
                     report_obj_list += [report_obj]
                 except Report.DoesNotExist:
                     return render(request, 'group/create_group.html', {'invalid_report': True, 'invalid_report_name': r}, )
@@ -61,9 +76,14 @@ def create_group(request):
             group = Group.objects.create(group_name=group_name)
 
             for o in base_user_list:
-                group.member_list.add(base_user)
+                group.member_list.add(o)
+
             for o in report_obj_list:
-                group.report_list.add(report_obj)
+                group.report_list.add(o)
+
+            # group.save()
+
+            # print(group.member_list.all())
 
             # print(len(group.report_list.all()))
 
@@ -74,6 +94,13 @@ def create_group(request):
         return render(request, 'group/create_group.html', {'invalid_entry':True})
     else:
         return render(request, 'group/create_group.html',)
+
+
+def find_report(list_reports, report_name):
+    for report in list_reports:
+        if report.title == report_name:
+            return report
+    return None
 
 
 def view_group(request):
