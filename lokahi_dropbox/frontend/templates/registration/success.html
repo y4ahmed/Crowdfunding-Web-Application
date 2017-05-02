@@ -6,10 +6,15 @@
 <body>
     {% extends "base.html" %}
     {% block title %}Registration Successful{% endblock %}
-    {% block head %}Registration Completed Successfully{% endblock %}
-    {% block content %}
-    <h2>Thank you for registering.</h2>
-    <h3><a class = "btn btn-default" href="/">Login</a></h3>
-    {% endblock %}
+    {% block head %}{% endblock %}
+    {% block content %}{% load bootstrap %}
+      <div class = "jumbotron text-center">
+        <h1><font size="9">Registration Completed Successfully!</font></h1>
+        <h2>Thank you for registering.</h2>
+        <br />
+        <br />
+        <a class="btn btn-default" href="/"><font size="5">Login</font></a>
+      </div>
+      {% endblock %}
 </body>
 </html>
