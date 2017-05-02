@@ -31,6 +31,21 @@ class Lokahi(ttk.Frame):
         table['show'] = []
         table['height'] = 0
 
+    def setup_report_table(self, table, row):
+        table.insert("", 1, "reportid", text="Report ID:", values=(row[0]))
+        table.insert("", 2, "title", text="Report Title:", values=(row[1]))
+        table.insert("", 3, "compName", text="Company Name:", values=(row[2]))
+        table.insert("", 4, "CEO", text="CEO:", values=(row[3]))
+        table.insert("", 5, "phonenum", text="Phone Number:", values=(row[4]))
+        table.insert("", 6, "email", text="Email:", values=(row[5]))
+        table.insert("", 7, "location", text="Location:", values=(row[6]))
+        table.insert("", 8, "country", text="Country:", values=(row[7]))
+        table.insert("", 9, "sector", text="Sector:", values=(row[8]))
+        table.insert("", 10, "projects", text="Projects:", values=(row[9]))
+        table.insert("", 11, "files", text="Files:", values=(row[11]))
+        table.insert("", 12, "timestamp", text="Time Created:", values=(row[12]))
+
+
     def view_reports(self):
         try:
             conn = psycopg2.connect("dbname='lokahi_dropbox' user='admin' host='localhost' password='password'")
@@ -66,11 +81,12 @@ class Lokahi(ttk.Frame):
         try:
             cur.execute("""SELECT * from reports_report WHERE title = %(un)s """, {'un': report})
             row = cur.fetchall()
-            self.hide_table(self.view_reports_table)
-            self.show_table(self.show_report)
-
         except:
             print("Failed to view reports")
+        self.hide_table(self.view_reports_table)
+        self.show_table(self.show_report)
+        self.setup_report_table(self.show_report, row[0])
+
 
 
 
@@ -146,9 +162,9 @@ class Lokahi(ttk.Frame):
 
         self.view_reports_button = ttk.Button(self, text='View Reports', command=self.view_reports, state=DISABLED)
         self.view_reports_button.grid(column = 0, row=5, columnspan=4)
-        self.view_reports_table = ttk.Treeview(self, selectmode='browse',show=[], height=0)
+        self.view_reports_table = ttk.Treeview(self, selectmode='browse',show=[], height=0, columns=('placeholder'))
         self.view_reports_table.grid(column=0, row=6, columnspan=4)
-        self.show_report = ttk.Treeview(self, selectmode='browse', show=[], height=0)
+        self.show_report = ttk.Treeview(self, selectmode='browse', show=[], height=0, columns=('placeholder'))
         self.show_report.grid(column=0, row=7, columnspan=4)
 
 
