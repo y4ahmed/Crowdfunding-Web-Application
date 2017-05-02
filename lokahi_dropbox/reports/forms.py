@@ -12,7 +12,7 @@ class ReportForm(ModelForm):
         model = Report
         fields = ('title', 'compName', 'ceo', 'phoneNum', 'location',
                   'sector', 'projects', 'private', 'email')
-        exclude = ('AES_key', 'time_created', 'owner', 'files')
+        exclude = ('AES_key', 'time_created', 'owner')
 
 
 class ReportPermissionsForm(ModelForm):
