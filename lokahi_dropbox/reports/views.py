@@ -5,10 +5,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from django.shortcuts import redirect, render, get_object_or_404
-
+from django.views.generic.list import ListView
 from messaging.models import Message
 from .forms import ReportForm, FileForm, ReportPermissionsForm
 from .models import Report, File, CompanyDetails
+from frontend.models import BaseUser
 
 
 # Nothing working, not putting my stuff in yet
@@ -196,3 +197,23 @@ def delete_report(request, pk):
         report.delete()
 
     return redirect('index')
+
+class list_report(ListView):
+    model = Report
+    template_name = 'list_report.html'
+    context_object_name = 'report_list'
+    
+    def get_queryset(self):
+        username = self.request.user
+        if is_site_manager(username):
+            return Report.objects.all()
+        else:
+            return Report.objects.filter(owner = self.request.user)
+        
+def is_site_manager(username):
+    userRole = BaseUser.objects.get(user=username).user_role
+    if userRole == 'Site Manager':
+        return True
+    else:
+        return False
+
