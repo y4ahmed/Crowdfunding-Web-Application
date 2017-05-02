@@ -4,6 +4,8 @@ from search.forms import *
 from django.contrib.auth.models import User
 from frontend.models import *
 from django.http import HttpResponseRedirect
+from django.core.exceptions import ValidationError
+
 
 # Create your views here.
 
@@ -42,7 +44,6 @@ def advanced_search(request):
 
             if title == "" and company_name == "" and ceo == "" and \
             location == "" and country == "" and sector == "" and projects == "" and time_created == "":
-                print("here")
                 return render(request, 'searches/advanced_search.html', {'empty_field': True, 'form': AdvancedSearchForm()})
 
             if not title == "":
@@ -67,7 +68,12 @@ def advanced_search(request):
                 reports[6] = all_reports.filter(projects__icontains=projects)
                 # print(reports[6])
             if not time_created == "":
-                reports[7] = all_reports.filter(time_created__icontains=time_created)
+                try:
+                    reports[7] = all_reports.filter(time_created=time_created)
+                except (NameError, ValueError, ValidationError):
+                    print("here")
+                    return render(request, 'searches/advanced_search.html', {'time_error': True, 'form': AdvancedSearchForm()})
+
                 # print(reports[7])
 
             checks[0] = form.cleaned_data['and_title']

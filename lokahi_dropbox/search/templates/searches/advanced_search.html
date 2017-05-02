@@ -12,10 +12,14 @@
         {% if empty_field == True %}
             <b><font size="3" color="red">Please fill at least one search criterea</font></b>
         {% endif %}
+        {% if time_error == True %}
+            <b><font size="3" color="red">time field must be in HH:MM[:ss[.uuuuuu]] format</font></b>
+        {% endif %}
         <form method = "POST" action ="." class = "form-group">{% csrf_token %}
             <table border="0">
             {{ form|bootstrap }}
             </table>
+            <p>Time input must be in HH:MM format </p>
             <input type="submit" class = "btn btn-default" value="search" />
         </form>
         <br />
