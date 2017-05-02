@@ -7,19 +7,22 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    {% block head %}Send a Message{% endblock %}
     {% block content %}{% load bootstrap %}
     <div class = "jumbotron text-center">
+        {% if empty_field == True %}
+            <b><font size="3" color="red">Please fill at least one search criterea</font></b>
+        {% endif %}
         <form method = "POST" action ="." class = "form-group">{% csrf_token %}
             <table border="0">
             {{ form|bootstrap }}
             </table>
-            <input type="submit" class = "login" value="Send Message" />
+            <input type="submit" class = "btn btn-default" value="search" />
         </form>
         <br />
+
     </div>
-    <a class = "btn btn-default" href="/messaging/receive_message/">Receive Message</a>
-    <a class = "btn btn-default" href="/home/">Home</a>
+    <h3><a class = "btn btn-default" href="/logout/">Logout</a></h3>
+    <h3><a class = "btn btn-default" href="/home/">Home</a></h3>
     {% endblock %}
 </body>
 </html>

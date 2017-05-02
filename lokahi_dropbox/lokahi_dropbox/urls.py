@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth.views import login
 # from django.contrib.auth.decorators import user_passes_test
-from search.views import basic_search
+from search.views import *
 
 
 # login_forbidden = user_passes_test(lambda u: u.is_anonymous(), '/')
@@ -26,6 +26,7 @@ urlpatterns = [
     # url(r'^viewReport/', viewReport),
     # Search views
     url(r'^home/search/$', basic_search),
+    url(r'^home/advanced_search/$', advanced_search),
 ]
 
 # Serve static files

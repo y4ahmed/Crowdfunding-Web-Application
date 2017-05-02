@@ -19,22 +19,6 @@
                 <p class="lead">Subject: {{message.subject}}</p>
                 <p class="lead">Body: {{message.message}}</p>
                 <p class="lead">Sender: {{message.sender}}</p>
-                <!--
-                    <table class = "table">
-                        <tr>Subject: {{message.subject}}</tr>
-                        <br />
-                        <tr>Body: {{message.message}}</tr>
-                        <br />
-                        <tr>Sender: {{message.sender}}</tr>
-                    </table>
-                --->
-                <!--
-                    <li class = "list-group-item">
-                        Subject: {{ message.subject }}<br />
-                        Body: {{ message.message }}<br />
-                        From: {{ message.sender }}<br />
-                    </li>
-                -->
                 <form method="POST" action="/messaging/delete_message/">{% csrf_token %}
                     <input type="hidden" name="message" value={{message.id}} />
                     <input class = "btn btn-default" type="submit" value="Delete" />
