@@ -15,7 +15,7 @@ import os
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+REPOSITORY_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -136,6 +136,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "frontend/static")
+
+#MEDIA FILES (Files uploaded during web app use)
+MEDIA_URL = '/reportFiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'reportFiles' )
 
 # Fixture files (JSON)
 # https://docs.djangoproject.com/en/1.8/howto/initial-data/#id1

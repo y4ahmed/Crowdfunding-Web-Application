@@ -18,7 +18,7 @@ class Report(models.Model):
     sector = models.CharField(max_length=255)
     projects = models.TextField()
     private = models.BooleanField(default=False)
-    files = models.FileField(upload_to='attachments')
+    #files = models.FileField(upload_to='attachments')
     # time_created = models.DateTimeField(auto_now_add = True);
     time_created = models.TimeField(auto_now_add=True)
     # time_last_modified = models.DateTimeField(auto_now = True);
@@ -34,7 +34,6 @@ class ReportPermissions(models.Model):
 
 def generate_file_path(instance, filename):
     return os.path.join(
-        "reportFiles",
         instance.title.replace(" ", ""),
         filename.replace(" ", "")
     )
