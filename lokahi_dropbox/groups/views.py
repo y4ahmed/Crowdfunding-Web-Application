@@ -79,8 +79,15 @@ def create_group(request):
             for o in base_user_list:
                 group.member_list.add(o)
 
+            # add every report to the groups model
             for o in report_obj_list:
                 group.report_list.add(o)
+
+            # add every user other than the current one to each report
+            for o in base_user_list:
+                if not o.user == request.user:
+                    for r in report_obj_list:
+                        o.reports.add(r)
 
             # group.save()
 
