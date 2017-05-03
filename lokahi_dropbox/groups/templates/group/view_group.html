@@ -10,7 +10,7 @@
     {% block head %}<font color="black" size="6">All your groups</font>{% endblock %}
     {% block content %}{% load bootstrap %}
     <div class = "jumbotron text-center">
-        {% for group in groups %}
+        {% for group in groups reversed %}
             <p class = "lead"> Group name: {{ group.group_name }}</p>
             <form method="POST" action="/groups/edit_group/">{% csrf_token %}
                 <input class = "btn btn-default" type="submit" value="Edit" /><br />

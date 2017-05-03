@@ -11,7 +11,7 @@
     {% block content %}{% load bootstrap %}
     <div class = "jumbotron text-left">
         <div class="container"  style = "width:60%">
-        {% for report in report_list %}
+        {% for report in report_list reversed %}
 	<center>
 	  <h1> {{ report.title }} </h1> <br />
 	  <h2 style="margin-left: 5%;">

@@ -11,7 +11,7 @@
     {% block content %}{% load bootstrap %}
     <div class = "jumbotron text-center">
         <ul>
-            {% for post in posts %}
+            {% for post in posts reversed %}
             <p> <b>{{ post.sender }}</b> : {{ post.message }}
                   <hr align="center" size="10" nonshade width="100%" color="black">
             {% endfor %}

@@ -17,7 +17,7 @@
             {% endif %}
             <br />
             <br />
-            {% for message in messages %}
+            {% for message in messages reversed %}
                 <p class="lead">{{message.sender}} ({{message.time_created}})</p>
                 <p class="lead"><b>{{message.subject}}</b></p>
                 {% if message.encrypt ==  True %}
