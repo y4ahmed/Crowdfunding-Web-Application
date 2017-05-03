@@ -1,8 +1,9 @@
 from django.views.decorators.csrf import csrf_protect
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from messaging.forms import Message
 from django.contrib.auth.models import User
-from frontend.models import *
+from frontend.models import BaseUser
+from messaging.forms import MessageForm, DeleteForm, DecryptMessageForm
 from Crypto.PublicKey import RSA
 
 
