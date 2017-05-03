@@ -1,10 +1,32 @@
-{% extends "base.html" %}
+{% extends "base3.html" %}
 
 {% block content %}
     <h2>Reports</h2>
     <ul>
         {% for report in report_list %}
-            <li>{{ report.title }}</li>
+	<center>
+	  <h1 style="width: 90%; padding: 0.5%;border: solid black 2px; background-color: green; font-size: 36pt"> {{ report.title }} </h1>
+	  <h2 style="margin-left: 5%;">
+            <p2><b>Report Date: </b>{{ report.time_created }}</p2>
+	  </h2>
+	  <h2 style="margin-left: 5%;">
+            <p2><b>Company Name: </b>{{ report.compName }}</p2>
+	  </h2>
+	  <h2 style="margin-left: 5%" ;>
+            <p2><b>Company CEO: </b>{{ report.ceo }}</p2>
+	  </h2>
+	  <h2 style="margin-left: 5%">
+            <p2><b>Company Phone: </b>{{ report.phoneNum }}</p2>
+	  </h2>
+	  <h2 style="margin-left: 5%">
+            <p2><b>Company Location: </b>{{ report.location }}</p2>
+	  </h2>
+	  <h2 style="margin-left: 5%">
+            <p2><b>Company Country: </b>{{ report.country }}</p2>
+	  </h2>
+	  <h2 style="margin-left: 5%">
+            <p2><b>Sector: </b>{{ report.sector }}</p2>
+	</center>
         {% endfor %}
     </ul>
 {% endblock %}
