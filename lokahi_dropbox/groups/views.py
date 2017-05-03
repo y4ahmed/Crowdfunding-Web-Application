@@ -199,6 +199,10 @@ def add_members(request):
 
             group.member_list.remove(base_user)
 
+            # report_obj_list = group.report_list.all()
+            # for r in report_obj_list:
+            #     base_user.reports.remove(r)
+
             groups = Group.objects.filter(member_list=base_user)
             return render(request, 'group/view_group.html', {'groups': groups})
 
@@ -238,6 +242,17 @@ def add_members(request):
                         # raise Error("user" + user.username + "is already a member of the group")
 
                     group.member_list.add(base_user)
+
+                    # add all the reports to the base users object
+                    report_obj_list = group.report_list.all()
+                    for r in report_obj_list:
+                        base_user.reports.add(r)
+
+                    # for o in base_user_list:
+                    #     if not o.user == request.user:
+                    #         for r in report_obj_list:
+                    #             o.reports.add(r)
+
                 except User.DoesNotExist:
                     return render(
                         request,

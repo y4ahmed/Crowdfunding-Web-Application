@@ -103,16 +103,16 @@ POSTGRES_URL = "HEROKU_POSTGRESQL_PURPLE_URL"
 
 DATABASES = {
     # Use the following for Heroku
-    # 'default': dj_database_url.config(default=os.environ[POSTGRES_URL])
+    'default': dj_database_url.config(default=os.environ[POSTGRES_URL])
     # Use the following if local development
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lokahi_dropbox',
-        'USER': 'admin',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'lokahi_dropbox',
+    #     'USER': 'admin',
+    #     'PASSWORD': 'password',
+    #     'HOST': 'localhost',
+    #     'PORT': '',
+    # }
 }
 
 
