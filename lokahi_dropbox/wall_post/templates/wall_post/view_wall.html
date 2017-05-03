@@ -12,9 +12,8 @@
     <div class = "jumbotron text-center">
         <ul>
             {% for post in posts %}
-            <p> {{ post.sender }} : {{ post.message }}
-                  <br />
-                  <br />
+            <p> <b>{{ post.sender }}</b> : {{ post.message }}
+                  <hr align="center" size="10" nonshade width="100%" color="black">
             {% endfor %}
         </ul>
         <br />
