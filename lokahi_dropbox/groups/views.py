@@ -1,21 +1,25 @@
 from django.views.decorators.csrf import csrf_protect
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from django.contrib.auth.models import User
 
-from groups.forms import *
+from groups.forms import (
+    GroupForm, EditGroupForm, AddMembersForm, ExitGroupForm)
 from frontend.models import BaseUser
 from groups.models import Group
 
-from reports.models import *
+from reports.models import Report
 
 from django.http import HttpResponseRedirect
 
+
 @csrf_protect
 def groups(request):
-    return render(request, 'group/groups.html',)
+    base = BaseUser.objects.get(user=request.user)
+    return render(request, 'group/groups.html', {'type': base.user_role})
 
 
 def create_group(request):
+    base = BaseUser.objects.get(user=request.user)
     if request.method == 'POST':
         form = GroupForm(request.POST)
         if form.is_valid():
@@ -37,7 +41,11 @@ def create_group(request):
 
             if is_duplicate > 0:
                 # a group with this name already exists
-                return render(request, 'group/create_group.html', {'duplicate_name': True})
+                return render(
+                    request,
+                    'group/create_group.html',
+                    {'duplicate_name': True, 'type': base.user_role}
+                )
                 # raise Error("group duplicate, group names must be unique")
 
             base_user_list = []
@@ -50,29 +58,54 @@ def create_group(request):
                     print("adding ", m)
                     base_user_list += [base_user]
                 except User.DoesNotExist:
-                    return render(request, 'group/create_group.html', {'invalid_user': True, 'invalid_name': m}, )
+                    return render(
+                        request,
+                        'group/create_group.html',
+                        {'invalid_user': True, 'type': base.user_role,
+                         'invalid_name': m},
+                    )
                     # raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
 
-            users_private_reports = Report.objects.filter(owner_id=request.user, private=True)
+            users_private_reports = Report.objects.filter(
+                owner_id=request.user, private=True)
 
-
-            if len(users_private_reports)==0:
-                return render(request, 'group/create_group.html', {'no_reports':True,})
-
+            if len(users_private_reports) == 0:
+                return render(
+                    request,
+                    'group/create_group.html',
+                    {'no_reports': True, 'type': base.user_role}
+                )
 
             for r in report_list:
                 try:
                     # print(r)
-                    # pass in a list of report objects, and return the object with the matching name
+                    # pass in a list of report objects, and return the object
+                    # with the matching name
                     report_obj = find_report(users_private_reports, r)
                     # print(report_obj)
 
-                    if report_obj==None:
-                        return render(request, 'group/create_group.html', {'invalid_private_report_name':True, 'invalid_report_private':r})
+                    if report_obj is None:
+                        return render(
+                            request,
+                            'group/create_group.html',
+                            {
+                                'invalid_private_report_name': True,
+                                'invalid_report_private': r,
+                                'type': base.user_role
+                            }
+                        )
 
                     report_obj_list += [report_obj]
                 except Report.DoesNotExist:
-                    return render(request, 'group/create_group.html', {'invalid_report': True, 'invalid_report_name': r}, )
+                    return render(
+                        request,
+                        'group/create_group.html',
+                        {
+                            'invalid_report': True,
+                            'invalid_report_name': r,
+                            'type': base.user_role
+                        },
+                    )
 
             group = Group.objects.create(group_name=group_name)
 
@@ -97,11 +130,23 @@ def create_group(request):
 
             base_user = BaseUser.objects.get(user=request.user)
             groups = Group.objects.filter(member_list=base_user)
-            return render(request, 'group/view_group.html', {'groups': groups})
+            return render(
+                request,
+                'group/view_group.html',
+                {'groups': groups, 'type': base.user_role}
+            )
 
-        return render(request, 'group/create_group.html', {'invalid_entry':True})
+        return render(
+            request,
+            'group/create_group.html',
+            {'invalid_entry': True, 'type': base.user_role}
+        )
     else:
-        return render(request, 'group/create_group.html',)
+        return render(
+            request,
+            'group/create_group.html',
+            {'type': base.user_role}
+        )
 
 
 def find_report(list_reports, report_name):
@@ -114,19 +159,36 @@ def find_report(list_reports, report_name):
 def view_group(request):
     base_user = BaseUser.objects.get(user=request.user)
     groups = Group.objects.filter(member_list=base_user)
-    return render(request, 'group/view_group.html', {'groups': groups})
+    return render(
+        request,
+        'group/view_group.html',
+        {'groups': groups, 'type': base_user.user_role}
+    )
 
 
 def edit_group(request):
+    base_user = BaseUser.objects.get(user=request.user)
     if request.method == 'POST':
         form = EditGroupForm(data=request.POST)
         if form.is_valid():
             g = Group.objects.get(id=form.cleaned_data['group_id'])
             member_list = g.member_list.all()
-            return render(request, 'group/each_group.html', {'reports': g.report_list.all(), 'group_name': g.group_name, 'members': member_list, 'group_id': g.id, 'username': request.user.username})
+            return render(
+                request,
+                'group/each_group.html',
+                {
+                    'reports': g.report_list.all(),
+                    'group_name': g.group_name,
+                    'members': member_list,
+                    'group_id': g.id,
+                    'username': request.user.username,
+                    'type': base_user.user_role
+                }
+            )
 
 
 def add_members(request):
+    base = BaseUser.objects.get(user=request.user)
     if request.method == 'POST':
         form = ExitGroupForm(data=request.POST)
         if form.is_valid():
@@ -136,6 +198,10 @@ def add_members(request):
             group = Group.objects.get(id=form.cleaned_data['group_id'])
 
             group.member_list.remove(base_user)
+
+            # report_obj_list = group.report_list.all()
+            # for r in report_obj_list:
+            #     base_user.reports.remove(r)
 
             groups = Group.objects.filter(member_list=base_user)
             return render(request, 'group/view_group.html', {'groups': groups})
@@ -169,14 +235,39 @@ def add_members(request):
                                 'group_id': group.id,
                                 'username': request.user.username,
                                 'is_duplicate': True,
-                                'duplicate_name': m
+                                'duplicate_name': m,
+                                'type': base.user_role
                             }
                         )
                         # raise Error("user" + user.username + "is already a member of the group")
 
                     group.member_list.add(base_user)
+
+                    # add all the reports to the base users object
+                    report_obj_list = group.report_list.all()
+                    for r in report_obj_list:
+                        base_user.reports.add(r)
+
+                    # for o in base_user_list:
+                    #     if not o.user == request.user:
+                    #         for r in report_obj_list:
+                    #             o.reports.add(r)
+
                 except User.DoesNotExist:
-                    return render(request, 'group/each_group.html', {'reports': group.report_list.all(), 'group_name': group.group_name, 'members': group.member_list.all(), 'group_id': group.id, 'username': request.user.username, 'is_invalid': True, 'invalid_name': m})
+                    return render(
+                        request,
+                        'group/each_group.html',
+                        {
+                            'reports': group.report_list.all(),
+                            'group_name': group.group_name,
+                            'members': group.member_list.all(),
+                            'group_id': group.id,
+                            'username': request.user.username,
+                            'is_invalid': True,
+                            'invalid_name': m,
+                            'type': base.user_role
+                        }
+                    )
                     # raise forms.ValidationError(_('Invalid receiver name. Try again.'), code='invalid')
 
             return render(
@@ -186,7 +277,8 @@ def add_members(request):
                     'group_name': group.group_name,
                     'members': group.member_list.all(),
                     'group_id': group.id,
-                    'username': request.user.username
+                    'username': request.user.username,
+                    'type': base.user_role
                 }
             )
         return HttpResponseRedirect('/groups/view_groups')

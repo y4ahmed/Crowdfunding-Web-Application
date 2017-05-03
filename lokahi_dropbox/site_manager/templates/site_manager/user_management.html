@@ -1,0 +1,55 @@
+{% extends "base4.html" %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% block title %}Manage Site{% endblock %}
+    {% block head %}Manage Site{% endblock %}
+    {% block content %}{% load bootstrap %}
+    <div class = "jumbotron text-center">
+        <h3>Users</h3>
+        <!-- Loop through all users and include buttons -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>User Role</th>
+                    <th>Management Buttons</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in user_info %}
+                <tr>
+                    <th>{{user.username}}</th>
+                    <th>{{user.email}}</th>
+                    <th>{{user.role}}</th>
+                    <th>
+                        <form method="POST" action="/user_management/suspend_user/">{% csrf_token %}
+                            <input type="hidden" name="pk" value="{{user.pk}}" />
+                            <input type="hidden" name="action" value="suspend" />
+                            <input class="btn btn-default" type="submit" value="Suspend" />
+                        </form>
+                        <form method="POST" action="/user_management/restore_user/">{% csrf_token %}
+                            <input type="hidden" name="pk" value="{{user.pk}}" />
+                            <input type="hidden" name="action" value="restore" />
+                            <input class="btn btn-default" type="submit" value="Restore" />
+                        </form>
+                        <form method="POST" action="/user_management/give_site_manager_role/">{% csrf_token %}
+                            <input type="hidden" name="pk" value="{{user.pk}}" />
+                            <input type="hidden" name="action" value="manage" />
+                            <input class="btn btn-default" type="submit" value="Give Site Manager Role" />
+                        </form>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}
+</body>
+</html>

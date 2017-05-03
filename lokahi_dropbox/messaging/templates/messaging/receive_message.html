@@ -17,7 +17,7 @@
             {% endif %}
             <br />
             <br />
-            {% for message in messages %}
+            {% for message in messages reversed %}
                 <p class="lead">{{message.sender}} ({{message.time_created}})</p>
                 <p class="lead"><b>{{message.subject}}</b></p>
                 {% if message.encrypt ==  True %}
@@ -34,8 +34,7 @@
                     <input type="hidden" name="message" value="{{message.id}}" />
                     <input class = "btn btn-default" type="submit" value="Decrypt" />
                 </form>
-                <br />
-                <br />
+                <hr align="center" size="10" nonshade width="100%" color="black">
             {% endfor %}
         </ul>
         <br />

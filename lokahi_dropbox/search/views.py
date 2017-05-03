@@ -1,10 +1,10 @@
 from django.views.decorators.csrf import csrf_protect
-from django.shortcuts import render_to_response, render
-from search.forms import *
-from django.contrib.auth.models import User
-from frontend.models import *
+from django.shortcuts import render
+from search.forms import BasicSearchForm, AdvancedSearchForm
+from frontend.models import BaseUser
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ValidationError
+# from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -23,9 +23,23 @@ def basic_search(request):
             # TEST TODO remove
             # for report in reports:
             #     print(report.title)
-            return render(request, 'searches/search_result.html', {'report_list': reports} )
+            return render(
+                request,
+                'searches/search_result.html',
+                {'report_list': reports, 'type': base.user_role}
+            )
     base = BaseUser.objects.get(user=request.user)
-    return render(request, 'home.html', {'form': BasicSearchForm(), 'user': base, 'type': base.user_role, 'invalid_search':True})
+    return render(
+        request,
+        'home.html',
+        {
+            'form': BasicSearchForm(),
+            'user': base,
+            'type': base.user_role,
+            'invalid_search': True
+        }
+    )
+
 
 @csrf_protect
 def advanced_search(request):
@@ -49,14 +63,24 @@ def advanced_search(request):
             all_reports = base_user.reports.all()
 
             if title == "" and company_name == "" and ceo == "" and \
-            location == "" and country == "" and sector == "" and projects == "" and time_created == "":
-                return render(request, 'searches/advanced_search.html', {'empty_field': True, 'form': AdvancedSearchForm()})
+                    location == "" and country == "" and sector == "" and \
+                    projects == "" and time_created == "":
+                return render(
+                    request,
+                    'searches/advanced_search.html',
+                    {
+                        'empty_field': True,
+                        'type': base_user.user_role,
+                        'form': AdvancedSearchForm()
+                    }
+                )
 
             if not title == "":
                 reports[0] = all_reports.filter(title__icontains=title)
                 # print(reports[0])
             if not company_name == "":
-                reports[1] = all_reports.filter(compName__icontains=company_name)
+                reports[1] = all_reports.filter(
+                    compName__icontains=company_name)
                 # print(reports[1])
             if not ceo == "":
                 reports[2] = all_reports.filter(ceo__icontains=ceo)
@@ -78,7 +102,15 @@ def advanced_search(request):
                     reports[7] = all_reports.filter(time_created=time_created)
                 except (NameError, ValueError, ValidationError):
                     print("here")
-                    return render(request, 'searches/advanced_search.html', {'time_error': True, 'form': AdvancedSearchForm()})
+                    return render(
+                        request,
+                        'searches/advanced_search.html',
+                        {
+                            'time_error': True,
+                            'type': base_user.user_role,
+                            'form': AdvancedSearchForm()
+                        }
+                    )
 
                 # print(reports[7])
 
@@ -93,15 +125,14 @@ def advanced_search(request):
 
             final_reports = []
 
-            for i in range(0,8):
-                if checks[i] == False:
+            for i in range(0, 8):
+                if checks[i] is False:
                     # print("doing union")
                     final_reports = union(final_reports, reports[i])
                     # print(final_reports)
                 else:
                     # print("doing intersection")
                     final_reports = intersection(final_reports, reports[i])
-
 
             # print(len(final_reports))
             # TODO comment out the next part!
@@ -110,12 +141,29 @@ def advanced_search(request):
 
             return HttpResponseRedirect('/home/')
         else:
-            return render(request, 'searches/advanced_search.html', {'form': AdvancedSearchForm()})
+            return render(
+                request,
+                'searches/advanced_search.html',
+                {
+                    'form': AdvancedSearchForm(),
+                    'type': base_user.user_role,
+                }
+            )
     else:
-        return render(request, 'searches/advanced_search.html', {'form': AdvancedSearchForm()})
+        return render(
+            request,
+            'searches/advanced_search.html',
+            {
+                'form': AdvancedSearchForm(),
+                'type': base_user.user_role,
+
+            }
+        )
+
 
 def union(lst1, lst2):
     return list(set(lst1).union(set(lst2)))
+
 
 def intersection(lst1, lst2):
     return list(set(lst1).intersection(set(lst2)))

@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter import *
 import psycopg2
 import urllib.request
-
+from lokahi_dropbox.encryption import *
 
 
 import os
@@ -56,11 +56,10 @@ class Lokahi(ttk.Frame):
         table.insert("", 11, "files", text="Files:", values=(row[11]))
         table.insert("", 12, "timestamp", text="Time Created:", values=(row[12]))
 
-
-
     def view_reports(self):
+        self.hide_table(self.show_report)
         try:
-            conn = psycopg2.connect("dbname='lokahi_dropbox' user='admin' host='localhost' password='password'")
+            conn = psycopg2.connect("dbname='d1gd223316gqqm' user='ilscfhbnblgylf' host='ec2 - 54 - 235 - 168 - 152.compute - 1.amazonaws.com' password='b794a252ec1a81e2f72f19f46e5ff68c62bf318b3f9759aeb9735a94456f149e'")
         except:
             print("Database failure")
         cur = conn.cursor()
@@ -85,7 +84,7 @@ class Lokahi(ttk.Frame):
         item = self.view_reports_table.identify('item', event.x, event.y)
         report = self.view_reports_table.item(item, "text")
         try:
-            conn = psycopg2.connect("dbname='lokahi_dropbox' user='admin' host='localhost' password='password'")
+            conn = psycopg2.connect("dbname='d1gd223316gqqm' user='ilscfhbnblgylf' host='ec2 - 54 - 235 - 168 - 152.compute - 1.amazonaws.com' password='b794a252ec1a81e2f72f19f46e5ff68c62bf318b3f9759aeb9735a94456f149e'")
         except:
             print("Database failure")
         cur = conn.cursor()
@@ -114,7 +113,6 @@ class Lokahi(ttk.Frame):
             self.root.encrypted.append(encrypted)
             self.root.files.append(path)
 
-
     def download_file(self):
         url = "http://localhost:8000/reportFiles/"
         i = 0
@@ -123,13 +121,16 @@ class Lokahi(ttk.Frame):
             filename = path[index+1:]
             encrypted = self.root.encrypted[i]
             if encrypted:
-                print()
+                filename = url + path + ".enc"
+                #print("cs3240-s17-team21/lokahi_dropbox/reportFiles/" + path + ".enc")
+                path2 = os.path.join(os.getcwd(), "lokahi_dropbox","reportFiles", path)
+                path2 += ".enc"
+                print(path2)
+                decfile = decrypt_file(path2, "encrypt")
+                print(decfile)
             else:
                 filename = "/Users/danielbrown/Desktop/" + filename
                 urllib.request.urlretrieve(url + path, filename)
-
-
-
 
     def login(self):
 
@@ -138,7 +139,7 @@ class Lokahi(ttk.Frame):
 
         encoded = ""
         try:
-            conn = psycopg2.connect("dbname='lokahi_dropbox' user='admin' host='localhost' password='password'")
+            conn = psycopg2.connect("dbname='d1gd223316gqqm' user='ilscfhbnblgylf' host='ec2 - 54 - 235 - 168 - 152.compute - 1.amazonaws.com' password='b794a252ec1a81e2f72f19f46e5ff68c62bf318b3f9759aeb9735a94456f149e'")
         except:
             print("Database failure")
         cur = conn.cursor()
@@ -168,6 +169,7 @@ class Lokahi(ttk.Frame):
         self.root.user_id = ""
         self.root.files = []
         self.root.encrypted = []
+
         self.grid(column=0, row=0, sticky='nsew')
 
         self.menubar = tkinter.Menu(self.root)

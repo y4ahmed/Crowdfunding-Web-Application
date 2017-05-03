@@ -8,9 +8,9 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.list import ListView
 from messaging.models import Message
 from .forms import ReportForm, FileForm, ReportPermissionsForm
-from .models import Report, File, CompanyDetails
+from .models import Report, File  # , CompanyDetails
 from frontend.models import BaseUser
-from encryption import *
+from encryption import encrypt_file
 
 
 # Nothing working, not putting my stuff in yet
@@ -27,6 +27,7 @@ def can_view_report(user, report):
 FileFormset = inlineformset_factory(Report, File, form=FileForm, extra=0)
 # Nothing working, not putting my stuff in yet
 
+
 def is_company_user(username):
     userRole = BaseUser.objects.get(user=username).user_role
     if userRole == "Company User":
@@ -34,12 +35,15 @@ def is_company_user(username):
     else:
         return False
 
-def addReport(username,report):
+
+def addReport(username, report):
     baseUser = BaseUser.objects.get(user=username)
     baseUser.reports.add(report)
-    
+
+
 def create_report(request):
     # company_user = CompanyDetails.objects.get(user=request.user)
+    base = BaseUser.objects.get(user=request.user)
     company_user = request.user
     username = None
     if request.user.is_authenticated():
@@ -78,9 +82,11 @@ def create_report(request):
                     file.report = report
                     file.save()
                     if file.is_encrypted:
-                        encfile = encrypt_file("reportFiles/" + file.upload.__str__(), file.title)
+                        print(file.title)
+                        encfile = encrypt_file("reportFiles/" + file.upload.__str__(), "encrypt")
                         a = os.path.dirname(
-                            os.path.dirname(os.path.abspath(__file__))) + "/reportFiles/" + file.upload.__str__()
+                            os.path.dirname(os.path.abspath(__file__))
+                        ) + "/reportFiles/" + file.upload.__str__()
                         file.upload = encfile
                         os.remove(a)
 
@@ -104,14 +110,19 @@ def create_report(request):
                 'report_form': report_form,
                 'permissions_form': permissions_form,
                 'file_formset': file_formset,
-                'username': username
+                'username': username,
+                'type': base.user_role
             }
         )
 
     else:
         return redirect(
             'view_report',
-            {'has_messages': has_messages, 'username': username}
+            {
+                'has_messages': has_messages,
+                'username': username,
+                'type': base.user_role
+            }
         )
 
 
@@ -126,6 +137,7 @@ def view_report(request, Report, pk):
     #    if m.opened == False:
     #        has_messages = True
     #        break
+    base = BaseUser.objects.get(user=request.user)
     report = get_object_or_404(Report, pk=pk)
     is_owner = (report.owner.pk == request.user.pk)
     if not report.private or is_owner or can_view_report(request.user, report):
@@ -141,8 +153,9 @@ def view_report(request, Report, pk):
                 'report': report, 'is_owner': is_owner,
                 'unencrypted_files': unencrypted_files,
                 'has_encrypted_files': has_encrypted_files,
-                'has_messages': has_messages, 'username': username
-            }
+                'has_messages': has_messages, 'username': username,
+                'type': base.user_role
+            },
         )
     else:
         return redirect(
@@ -215,6 +228,7 @@ def delete_report(request, pk):
 
     return redirect('index')
 
+
 class list_report(ListView):
     model = Report
     template_name = 'list_report.html'
@@ -228,9 +242,10 @@ class list_report(ListView):
         else:
             return BaseUser.objects.get(user=username).reports.all()
 
+
 def is_site_manager(username):
     userRole = BaseUser.objects.get(user=username).user_role
-    if userRole =="Site Manager":
+    if userRole == "Site Manager":
         return True
     else:
         return False
