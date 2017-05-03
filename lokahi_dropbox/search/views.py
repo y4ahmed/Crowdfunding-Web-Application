@@ -21,7 +21,7 @@ def basic_search(request):
             for report in reports:
                 print(report.title)
             base = BaseUser.objects.get(user=request.user)
-            return render(request, 'home.html', {'form': BasicSearchForm(), 'user': base, 'type': base.user_role})
+            return render(request, 'searches/search_result.html', {'report_list': reports} )
     base = BaseUser.objects.get(user=request.user)
     return render(request, 'home.html', {'form': BasicSearchForm(), 'user': base, 'type': base.user_role, 'invalid_search':True})
 

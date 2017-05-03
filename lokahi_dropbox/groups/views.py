@@ -8,6 +8,7 @@ from groups.models import Group
 
 from reports.models import *
 
+from django.http import HttpResponseRedirect
 
 @csrf_protect
 def groups(request):
@@ -120,6 +121,18 @@ def edit_group(request):
 
 def add_members(request):
     if request.method == 'POST':
+        form = ExitGroupForm(data=request.POST)
+        if form.is_valid():
+            user = User.objects.get(
+                username__iexact=form.cleaned_data['username'])
+            base_user = BaseUser.objects.get(user=user)
+            group = Group.objects.get(id=form.cleaned_data['group_id'])
+
+            group.member_list.remove(base_user)
+
+            groups = Group.objects.filter(member_list=base_user)
+            return render(request, 'group/view_group.html', {'groups': groups})
+
         form = AddMembersForm(data=request.POST)
         if form.is_valid():
             temp_list = form.cleaned_data['new_members']
@@ -169,15 +182,4 @@ def add_members(request):
                     'username': request.user.username
                 }
             )
-
-        form = ExitGroupForm(data=request.POST)
-        if form.is_valid():
-            user = User.objects.get(
-                username__iexact=form.cleaned_data['username'])
-            base_user = BaseUser.objects.get(user=user)
-            group = Group.objects.get(id=form.cleaned_data['group_id'])
-
-            group.member_list.remove(base_user)
-
-            groups = Group.objects.filter(member_list=base_user)
-            return render(request, 'group/view_group.html', {'groups': groups})
+        return HttpResponseRedirect('/groups/view_groups')
