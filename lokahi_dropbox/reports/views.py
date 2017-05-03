@@ -26,6 +26,12 @@ def can_view_report(user, report):
 FileFormset = inlineformset_factory(Report, File, form=FileForm, extra=0)
 # Nothing working, not putting my stuff in yet
 
+def is_company_user(username):
+    userRole = BaseUser.objects.get(user=username).user_role
+    if userRole == "Company User":
+        return True
+    else:
+        return False
 
 def create_report(request):
     # company_user = CompanyDetails.objects.get(user=request.user)
@@ -212,7 +218,7 @@ class list_report(ListView):
 
 def is_site_manager(username):
     userRole = BaseUser.objects.get(user=username).user_role
-    if userRole == 'Site Manager':
+    if userRole =="Site Manager":
         return True
     else:
         return False
