@@ -116,7 +116,7 @@ def create_report(request):
 
 
 @login_required
-def view_report(request, pk):
+def view_report(request, Report, pk):
     username = None
     if request.user.is_authenticated():
         username = request.user
@@ -219,9 +219,10 @@ class list_report(ListView):
     model = Report
     template_name = 'list_report.html'
     context_object_name = 'report_list'
-
     def get_queryset(self):
         username = self.request.user
+        #site_manager = is_site_manager(username)
+
         if is_site_manager(username):
             return Report.objects.all()
         else:

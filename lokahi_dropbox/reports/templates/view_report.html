@@ -49,9 +49,9 @@
         <h3><a> This report has encrypted files. Need File Download App<a></h3>
     {% endif %}
 
-    {% if site_manager %}
+    {% if is_site_manager or is_owner %}
     <p2><a style="margin-left: 5%; margin-top:1%; background-color: green;" class="btn btn-primary btn-lg"
-           href="{% url 'editReport' report.pk %}" role="button">Edit Report</a></p2>
+           href="{% url 'editReport %}" role="button">Edit Report</a></p2>
         <p2><a style="margin-left: 5%; margin-top:1%; background-color: red;" class="btn btn-primary btn-lg"
                href="{% url 'deleteReport' report.pk %}" role="button">Delete Report</a></p2>
     {% endif %}

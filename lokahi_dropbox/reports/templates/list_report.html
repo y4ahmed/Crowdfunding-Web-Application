@@ -35,7 +35,10 @@
 	  <h2 style="margin-left: 5%">
             <p2><b>Sector: </b>{{ report.sector }}</p2>
 	</center>
-  <hr align="center" size="10" nonshade width="100%" color="black">
+	<hr align="center" size="10" nonshade width="100%" color="black">
+	<p2><a style="margin-left: 5%; margin-top:1%; background-color: black;" class="btn btn-primary btn-lg"
+	       href="{% url 'reports.views.edit_report' report.pk %}" role="button">Edit Report</a></p2>
+         <p2><a style="margin-left: 5%; margin-top:1%; background-color: red;" class="btn btn-primary btn-lg" href="delete_report" role="button">Delete Report</a></p2>
         {% endfor %}
     </ul>
     </div>

@@ -11,7 +11,8 @@ urlpatterns = [
     #list_report
     url(r'^create_report/$', views.create_report, name='create_report'),
     # editReports
-    url(r'^edit_reports/$', views.edit_report, name='edit_report'),
+    url(r'^edit_report/$', views.edit_report, name='edit_report'),
+    url(r'^edit_report/(?P<pk>\d+)/',views.edit_report, name='edit_report'),
     # deleteReports
-    url(r'^delete_reports/$', views.delete_report, name='delete_report'),
+    url(r'^delete_report/$', views.delete_report, name='delete_report'),
 ]
