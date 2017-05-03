@@ -1,6 +1,11 @@
 {% extends "base3.html" %}
 
 {% block content %}
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+</head>
     <h2>Reports</h2>
     <ul>
         {% for report in report_list %}
@@ -22,7 +27,7 @@
             <p2><b>Company Location: </b>{{ report.location }}</p2>
 	  </h2>
 	  <h2 style="margin-left: 5%">
-            <p2><b>Company Country: </b>{{ report.country }}</p2>
+            <p2><b>Current Projects: </b>{{ report.projects }}</p2>
 	  </h2>
 	  <h2 style="margin-left: 5%">
             <p2><b>Sector: </b>{{ report.sector }}</p2>

@@ -33,6 +33,10 @@ def is_company_user(username):
     else:
         return False
 
+def addReport(username,report):
+    baseUser = BaseUser.objects.get(user=username)
+    baseUser.reports.add(report)
+    
 def create_report(request):
     # company_user = CompanyDetails.objects.get(user=request.user)
     company_user = request.user
@@ -79,7 +83,7 @@ def create_report(request):
                     report.has_attachments = False
 
                 report.save(force_update=True)
-
+                addReport(request.user, report)
                 messages.success(request, "Report created")
                 return view_report(request, report.pk)
         else:
@@ -214,7 +218,7 @@ class list_report(ListView):
         if is_site_manager(username):
             return Report.objects.all()
         else:
-            return Report.objects.filter(owner = self.request.user)
+            return BaseUser.objects.get(user=username).reports.all()
 
 def is_site_manager(username):
     userRole = BaseUser.objects.get(user=username).user_role
