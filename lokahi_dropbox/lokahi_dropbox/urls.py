@@ -21,14 +21,14 @@ urlpatterns = [
     url(r'^messaging/', include('messaging.urls'), name='messaging'),
     url(r'^groups/', include('groups.urls'), name='groups'),
     url(r'^wall/', include('wall_post.urls'), name='wall'),
-    url(r'^manage_site/', include('site_manager.urls'), name='manage_site'),
+    url(r'^user_management/', include('site_manager.urls'), name='manager_users'),
     url(r'^reports/', include('reports.urls'), name='reports'),
     # url(r'^createReport/', createReport),
     # url(r'^viewReport/', viewReport),
     # Search views
     url(r'^home/search/$', basic_search),
     url(r'^home/advanced_search/$', advanced_search),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Serve static files
 urlpatterns += staticfiles_urlpatterns()

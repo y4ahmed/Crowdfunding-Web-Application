@@ -5,6 +5,7 @@ import psycopg2
 import urllib.request
 
 
+
 import os
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'lokahi_dropbox.lokahi_dropbox.settings'
@@ -107,20 +108,26 @@ class Lokahi(ttk.Frame):
         except:
             print("No reports for you")
             return
-
-        path = row[0][4]
-        self.root.files.append(path)
-        url = "http://localhost:8000/reportFiles/" + path
-        urllib.request.urlretrieve(url, "testdl5.txt")
+        for report in row:
+            path = report[4]
+            encrypted = report[3]
+            self.root.encrypted.append(encrypted)
+            self.root.files.append(path)
 
 
     def download_file(self):
         url = "http://localhost:8000/reportFiles/"
+        i = 0
         for path in self.root.files:
             index = path.index('/')
             filename = path[index+1:]
-            filename = "/Users/danielbrown/Desktop/" + filename
-            urllib.request.urlretrieve(url + path, filename)
+            encrypted = self.root.encrypted[i]
+            if encrypted:
+                print()
+            else:
+                filename = "/Users/danielbrown/Desktop/" + filename
+                urllib.request.urlretrieve(url + path, filename)
+
 
 
 
@@ -160,7 +167,7 @@ class Lokahi(ttk.Frame):
         self.root.option_add('*tearOff', 'FALSE')
         self.root.user_id = ""
         self.root.files = []
-
+        self.root.encrypted = []
         self.grid(column=0, row=0, sticky='nsew')
 
         self.menubar = tkinter.Menu(self.root)

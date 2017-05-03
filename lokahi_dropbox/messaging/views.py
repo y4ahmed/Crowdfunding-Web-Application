@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response, render
-from messaging.forms import *
+from messaging.forms import Message
 from django.contrib.auth.models import User
 from frontend.models import *
 from Crypto.PublicKey import RSA
@@ -88,9 +88,11 @@ def decrypt_message(request):
                 message.save()
             else:
                 # throw error
-                messages = Message.objects.filter(receiver=request.user.username).order_by('id')
+                messages = Message.objects.filter(
+                    receiver=request.user.username).order_by('id')
                 return render(request, 'messaging/receive_message.html', {'messages': messages, 'is_decrypted': True})
 
-            messages = Message.objects.filter(receiver=request.user.username).order_by('id')
+            messages = Message.objects.filter(
+                receiver=request.user.username).order_by('id')
 
     return render(request, 'messaging/receive_message.html', {'messages': messages, 'is_decrypted': False})

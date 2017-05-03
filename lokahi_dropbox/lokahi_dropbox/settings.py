@@ -137,9 +137,9 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "frontend/static")
 
-#MEDIA FILES (Files uploaded during web app use)
+# MEDIA FILES (Files uploaded during web app use)
 MEDIA_URL = '/reportFiles/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'reportFiles' )
+MEDIA_ROOT = os.path.join(BASE_DIR, 'reportFiles')
 
 # Fixture files (JSON)
 # https://docs.djangoproject.com/en/1.8/howto/initial-data/#id1
