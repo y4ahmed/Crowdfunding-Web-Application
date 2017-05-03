@@ -78,7 +78,8 @@ def create_report(request):
                     file.report = report
                     file.save()
                     if file.is_encrypted:
-                        encfile = encrypt_file("reportFiles/" + file.upload.__str__(), file.title)
+                        print(file.title)
+                        encfile = encrypt_file("reportFiles/" + file.upload.__str__(), "encrypt")
                         a = os.path.dirname(
                             os.path.dirname(os.path.abspath(__file__))) + "/reportFiles/" + file.upload.__str__()
                         file.upload = encfile

@@ -68,4 +68,3 @@ def decrypt_file(filename, key):
 
    except FileNotFoundError:
        print('A file with this name could not be found !')
-       exit(1)
