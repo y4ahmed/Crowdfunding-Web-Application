@@ -1,16 +1,19 @@
-{% extends "base3.html" %}
+{% extends "base4.html" %}
 
-{% block content %}
+<html lang="en">
 <head>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <meta charset="UTF-8">
 </head>
-    <h2>Reports</h2>
-    <ul>
+<body>
+    {% block head %}<font color="black" size="6">Messages</font>{% endblock %}
+    {% block content %}{% load bootstrap %}
+    <div class = "jumbotron text-left">
+        <div class="container"  style = "width:60%">
         {% for report in report_list %}
 	<center>
-	  <h1 style="width: 90%; padding: 0.5%;border: solid black 2px; background-color: green; font-size: 36pt"> {{ report.title }} </h1>
+	  <h1> {{ report.title }} </h1> <br />
 	  <h2 style="margin-left: 5%;">
             <p2><b>Report Date: </b>{{ report.time_created }}</p2>
 	  </h2>
@@ -32,6 +35,11 @@
 	  <h2 style="margin-left: 5%">
             <p2><b>Sector: </b>{{ report.sector }}</p2>
 	</center>
+  <hr align="center" size="10" nonshade width="100%" color="black">
         {% endfor %}
     </ul>
+    </div>
+  </div>
 {% endblock %}
+</body>
+</html>
