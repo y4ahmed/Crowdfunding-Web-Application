@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response, render
 from django.contrib import messages
 
+
 class PostForm(forms.Form):
     message = forms.CharField(max_length=255)
     anonymous = forms.BooleanField(required=False)
