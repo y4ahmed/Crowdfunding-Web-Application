@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'lokahi_dropbox.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 # Heroku saves the day?
-# POSTGRES_URL = "HEROKU_POSTGRESQL_PURPLE_URL"
+POSTGRES_URL = "HEROKU_POSTGRESQL_PURPLE_URL"
 
 DATABASES = {
     # Use the following for Heroku
