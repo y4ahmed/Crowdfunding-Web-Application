@@ -10,6 +10,7 @@ from messaging.models import Message
 from .forms import ReportForm, FileForm, ReportPermissionsForm
 from .models import Report, File, CompanyDetails
 from frontend.models import BaseUser
+from encryption import *
 
 
 # Nothing working, not putting my stuff in yet
@@ -66,6 +67,12 @@ def create_report(request):
                     file.upload_date = datetime.date.today()
                     file.report = report
                     file.save()
+                    if file.is_encrypted:
+                        encfile = encrypt_file("reportFiles/" + file.upload.__str__(), file.title)
+                        a = os.path.dirname(
+                            os.path.dirname(os.path.abspath(__file__))) + "/reportFiles/" + file.upload.__str__()
+                        file.upload = encfile
+                        os.remove(a)
 
                 if File.objects.filter(report__pk=report.pk):
                     report.has_attachments = True
