@@ -21,6 +21,16 @@
             <input class = "submit" type="submit" name="send">
         </form>
 
+        {% if no_reports == True %}
+        <br />
+            <b><font size="3" color="red">You do not have any private reports!</font></b>
+        {% endif %}
+
+        {% if invalid_private_report_name == True %}
+        <br />
+            <b><font size="3" color="red">{{ invalid_report_private }} is not one of your private reports</font></b>
+        {% endif %}
+
         {% if invalid_entry == True %}
         <br />
             <b><font size="3" color="red">Please fill up all the above fields</font></b>

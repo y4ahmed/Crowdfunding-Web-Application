@@ -1,6 +1,5 @@
-{% extends 'base.html' %}
+{% extends 'base4.html' %}
 {% load bootstrap3 %}
-{% block content %}
     <script type="text/html" id="file-template">
     <div id="file-__prefix__" style="margin-top:15px;margin-bottom:15px;">
         {{ file_formset.empty_form }}
@@ -36,27 +35,35 @@
 
     });
     </script>
-    <form method="post" enctype="multipart/form-data" class="form" action="/reports/create_report/">
-        {% csrf_token %}
-        <div>
-            {% bootstrap_form report_form %}
-            {% bootstrap_form permissions_form %}
-            {{ file_formset.management_form }}
+    {% block head %}<font color="black" size="6">Create a report</font>{% endblock %}
+    {% block content %}{% load bootstrap %}
+    <div class = "jumbotron text-left">
+        <div class="container"  style = "width:60%">
+          <form method="post" enctype="multipart/form-data" class="form" action="/reports/create_report/">
+              {% csrf_token %}
+              <div>
+                  {% bootstrap_form report_form %}
+                  <!-- {% bootstrap_form permissions_form %} -->
+                  {{ file_formset.management_form }}
 
-            <label>Add Files <span><button style= "background-color: green;" type="submit" class="add-item glyphicon glyphicon-plus"></button></span></label>
-
-            <div id="file-form-container">
-                {% for form in file_formset %}
-                    <div id="file-{{ forloop.counter0 }}" style="margin-top:15px;margin-bottom:15px;">
-                        {% bootstrap_form form %}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% buttons %}
-        <button style= "background-color: green;" type="submit" class="btn btn-primary">
-            Create Report
-        </button>
-        {% endbuttons %}
-    </form>
+                  <label>Add Files <span><button style= "background-color: white;" type="submit" class="add-item glyphicon glyphicon-plus"></button></span></label>
+              </div>
+                  <div id="file-form-container">
+                      {% for form in file_formset %}
+                          <div id="file-{{ forloop.counter0 }}" style="margin-top:15px;margin-bottom:15px;">
+                              {% bootstrap_form form %}
+                          </div>
+                      {% endfor %}
+                  </div>
+              </div>
+              {% buttons %}
+              <center>
+              <button style="align:center" type="submit" class="btn btn-default">
+                  Create Report
+              </button>
+            </center>
+              {% endbuttons %}
+          </form>
+      </div>
+    </div>
 {% endblock %}

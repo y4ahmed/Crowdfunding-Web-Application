@@ -1,9 +1,18 @@
-{% extends 'base.html' %}
-{% load i18n %}
-{% block content %}
+{% extends "base4.html" %}
 
-    <h1 style="width: 90%; padding: 0.5%;border: solid black 2px; background-color: green; font-size: 36pt"> {{ report.title }} </h1>
-    <h2 style="margin-left: 5%;">
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% block content %}{% load bootstrap %}
+    <div class = "jumbotron text-left">
+        <div class="container"  style = "width:60%">
+	<center>
+	  <h1> {{ report.title }} </h1> <br />
+	  <h2 style="margin-left: 5%;">
         <p2><b>Report Date: </b>{{ report.time_created }}</p2>
     </h2>
     <h2 style="margin-left: 5%;">
@@ -46,7 +55,8 @@
         <p2><a style="margin-left: 5%; margin-top:1%; background-color: red;" class="btn btn-primary btn-lg"
                href="{% url 'deleteReport' report.pk %}" role="button">Delete Report</a></p2>
     {% endif %}
-    <p2 style="margin-left: 5%; margin-top:1%; background-color: green;" class="btn btn-primary btn-lg" onClick="javascript:history.go(-2);"
-                type=button>Continue</p2>
-
+    </div>
+  </div>
 {% endblock %}
+</body>
+</html>

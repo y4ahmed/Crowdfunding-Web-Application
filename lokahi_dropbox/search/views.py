@@ -16,12 +16,14 @@ def basic_search(request):
         form = BasicSearchForm(request.POST)
         if form.is_valid():
             search = form.cleaned_data['search']
-            reports = Report.objects.filter(owner_id=request.user).filter(title__icontains=search)
-            # TEST TODO remove
-            for report in reports:
-                print(report.title)
             base = BaseUser.objects.get(user=request.user)
-            return render(request, 'home.html', {'form': BasicSearchForm(), 'user': base, 'type': base.user_role})
+            reports = base.reports.filter(title__icontains=search)
+            # reports = reports.filter()
+            # reports = Report.objects.filter(owner_id=request.user).filter(title__icontains=search)
+            # TEST TODO remove
+            # for report in reports:
+            #     print(report.title)
+            return render(request, 'searches/search_result.html', {'report_list': reports} )
     base = BaseUser.objects.get(user=request.user)
     return render(request, 'home.html', {'form': BasicSearchForm(), 'user': base, 'type': base.user_role, 'invalid_search':True})
 
@@ -43,7 +45,8 @@ def advanced_search(request):
             checks = [False, False, False, False, False, False, False, False]
 
             # all of the users reports
-            all_reports = Report.objects.filter(owner_id=request.user)
+            base_user = BaseUser.objects.get(user=request.user)
+            all_reports = base_user.reports.all()
 
             if title == "" and company_name == "" and ceo == "" and \
             location == "" and country == "" and sector == "" and projects == "" and time_created == "":
